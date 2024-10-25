@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Core/CNSMarketing.Service/Helpers/SocialMediaConfigurationHelper.cs
+/Presentation/CNSMarketing.API/appsettings.Development.json
+/Presentation/CNSMarketing.API/appsettings.json
