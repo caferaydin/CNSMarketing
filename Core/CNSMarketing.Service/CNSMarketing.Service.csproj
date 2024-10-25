@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <Compile Remove="Abstraction\Service\Authentication\External\**" />
+    <EmbeddedResource Remove="Abstraction\Service\Authentication\External\**" />
+    <None Remove="Abstraction\Service\Authentication\External\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CNSMarketing.Domain\CNSMarketing.Domain.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+<ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.9.2" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+<ItemGroup>
+  <Folder Include="Features/Command/User/" />
+  <Folder Include="Models\Requests\Facebook\" />
+  <Folder Include="Models\Responses\Facebook\" />
+  <Folder Include="Models\Responses\User\" />
+  <Folder Include="Models\ViewModels\Authentication\" />
+  <Folder Include="Repositories\Authentication\" />
+</ItemGroup>
+</Project>
