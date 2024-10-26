@@ -9,5 +9,5 @@ public interface ITokenHandler
 {
     Task<TokenResponseModel> CreateAccessToken(int second, AppUser appUser);
     string CreateRefreshToken();
-    Task<TokenControl> GetUserFromTokenAsync(string token);
+    Task<TokenInfo> GetUserFromTokenAsync(string token);
 }

@@ -11,12 +11,12 @@ namespace CNSMarketing.API.Controllers
     {
         private readonly ITokenHandler _tokenHandler;
 
-        public TokenControl tokenControl = null;
+        public TokenInfo tokenInfo = null;
 
 
-        public BaseController(TokenControl tokenInfo)
+        public BaseController(TokenInfo tokenInfo)
         {
-            this.tokenControl = tokenInfo;
+            this.tokenInfo = tokenInfo;
         }
 
         public BaseController(ITokenHandler tokenHandler)
@@ -85,16 +85,16 @@ namespace CNSMarketing.API.Controllers
             var accessToken = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
             // Token'ı doğrula ve kullanıcı bilgilerini al
-             tokenControl = await _tokenHandler.GetUserFromTokenAsync(accessToken);
+            tokenInfo = await _tokenHandler.GetUserFromTokenAsync(accessToken);
 
             // Token geçersizse
-            if (tokenControl == null)
+            if (tokenInfo == null)
             {
                 return TokenResult.Invalid; // Geçersiz token
             }
 
             // Kullanıcının token'ının süresini kontrol et
-            if (tokenControl.ExpireDate < DateTime.UtcNow)
+            if (tokenInfo.ExpireDate < DateTime.UtcNow)
             {
                 return TokenResult.Expired; // Token süresi dolmuş
             }

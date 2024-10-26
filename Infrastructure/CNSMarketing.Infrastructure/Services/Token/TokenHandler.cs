@@ -138,7 +138,7 @@ namespace CNSMarketing.Infrastructure.Services.Token
             return Convert.ToBase64String(number);
         }
 
-        public async Task<TokenControl> GetUserFromTokenAsync(string token)
+        public async Task<TokenInfo> GetUserFromTokenAsync(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -175,7 +175,7 @@ namespace CNSMarketing.Infrastructure.Services.Token
 
                 var customer = _customerReadRepository.GetWhere(x=> x.UserId == user.Id).FirstOrDefault()!;
 
-                var responseModel = new TokenControl()
+                var responseModel = new TokenInfo()
                 {
                     AccessToken = token, // Geçerli token
                     CustomerId = customer.Id,

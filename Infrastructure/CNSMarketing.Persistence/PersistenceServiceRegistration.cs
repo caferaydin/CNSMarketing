@@ -39,7 +39,7 @@ public static class PersistenceServiceRegistration
 
         /////////////////// SOCIAL MEDÝA  ///////////////////
         services.AddScoped<ILinkedlnService, LinkedlnService>();
-
+        services.AddScoped<ISocialPostService, SocialPostService>();
         /////////////////// SOCIAL MEDÝA END  ///////////////////
 
 

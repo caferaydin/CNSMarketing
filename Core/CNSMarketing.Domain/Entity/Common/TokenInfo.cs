@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CNSMarketing.Domain.Entity.Common
+﻿namespace CNSMarketing.Domain.Entity.Common
 {
-    public class TokenControl
+    public class TokenInfo
     {
         public string? UserId { get; set; }
         public int CustomerId { get; set; }

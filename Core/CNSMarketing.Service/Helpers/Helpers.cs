@@ -20,6 +20,19 @@ namespace CNSMarketing.Service.Helpers
         {
             return JsonConvert.SerializeObject(obj);
         }
+
+        public static byte[] ConvertFromBase64ToByte(string base64String)
+        {
+            try
+            {
+                byte[] bytes = Convert.FromBase64String(base64String);
+                return bytes;
+            }
+            catch (FormatException ex)
+            {
+                return null;
+            }
+        }
     }
 }
 
