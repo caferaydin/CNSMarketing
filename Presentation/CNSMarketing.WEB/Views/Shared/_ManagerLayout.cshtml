@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    @await Html.PartialAsync("~/Views/ManagerLayoutPartial/_HeadPartial.cshtml")
+
+    @await RenderSectionAsync("Style", required: false)
+</head>
+<body class="app sidebar-mini ltr light-mode">
+
+    <div id="global-loader">
+        <img src="~/assets/images/loader.svg" class="loader-img" alt="Loader">
+    </div>
+
+
+    <div class="page">
+
+        <div class="page-main">
+
+            @await Component.InvokeAsync("Header")
+
+
+            @await Component.InvokeAsync("NavigationMenu")
+
+
+            <div class="main-content app-content mt-0">
+                <div class="side-app">
+
+                    
+                   @*   <div id="emailConfirmationSection">
+                        <!-- Buton yeri -->
+                    </div> *@
+
+
+                    @RenderBody()
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    @await Html.PartialAsync("~/Views/ManagerLayoutPartial/_SideBarPartial.cshtml")
+
+    @* @await Html.PartialAsync("~/Views/Shared/ManagerLayoutPartial/_CountrySelectorPartial.cshtml") *@
+
+    @await Html.PartialAsync("~/Views/ManagerLayoutPartial/_FooterPartial.cshtml")
+
+    <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+
+    @await Html.PartialAsync("~/Views/ManagerLayoutPartial/_ScriptsPartial.cshtml")
+
+
+    @* Mail Doğrulama için *@
+@* 
+    <script>
+    // Sayfa yüklendiğinde kullanıcının email durumu kontrol edilir
+    $(document).ready(function () {
+        checkEmailConfirmationStatus();
+    });
+
+    function checkEmailConfirmationStatus() {
+        $.ajax({
+                url: '/get-confirm-email',
+            type: 'GET',
+            success: function (response) {
+                if (response.emailConfirmed) {
+                    // Eğer e-posta onaylandıysa, butonu gizle
+                    $('#emailConfirmationSection').html('<span class="text-success">E-posta onaylandı.</span>');
+                } else {
+                    // E-posta onaylanmamışsa, butonu göster
+                    $('#emailConfirmationSection').html(`
+                        <button class="btn btn-primary" onclick="sendConfirmationEmail()">E-postayı Doğrula</button>
+                        <small id="emailMessage" class="text-muted"></small>
+                    `);
+                }
+            },
+            error: function () {
+                $('#emailConfirmationSection').html('<span class="text-danger">Bir hata oluştu.</span>');
+            }
+        });
+    }
+
+    function sendConfirmationEmail() {
+        $.ajax({
+                url: '/get-confirm-email',
+            type: 'GET',
+            success: function (response) {
+                if (response.success) {
+                    $('#emailMessage').text(response.message).removeClass('text-danger').addClass('text-success');
+                } else {
+                    $('#emailMessage').text(response.message).removeClass('text-success').addClass('text-danger');
+                }
+            },
+            error: function () {
+                $('#emailMessage').text('Bir hata oluştu.').removeClass('text-success').addClass('text-danger');
+            }
+        });
+    }
+</script>
+ *@
+    @* Mail Doğrulama için *@
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

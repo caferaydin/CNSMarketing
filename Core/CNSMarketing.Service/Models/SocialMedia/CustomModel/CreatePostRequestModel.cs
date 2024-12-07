@@ -1,4 +1,4 @@
-﻿namespace CNSMarketing.Service.Models.SocialMedia.Model
+﻿namespace CNSMarketing.Application.Models.SocialMedia.Model
 {
     public class CreatePostRequestModel
     {

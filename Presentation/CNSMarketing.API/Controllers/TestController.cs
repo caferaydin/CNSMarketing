@@ -1,4 +1,5 @@
-﻿using MapsterMapper;
+﻿using CNSMarketing.Application.Abstraction.ExternalService;
+using MapsterMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +11,13 @@ namespace CNSMarketing.API.Controllers
     {
 
         private readonly IMapper _mapper;
+        private readonly IMailService _mailService;
 
-        
 
-        public TestController(IMapper mapper)
+        public TestController(IMapper mapper, IMailService mailService)
         {
             _mapper = mapper;
+            _mailService = mailService;
         }
 
 
@@ -31,7 +33,13 @@ namespace CNSMarketing.API.Controllers
             return Ok(productDto);
         }
 
-       
+        [HttpGet("GetMail")]
+        public async Task<IActionResult> GetMail()
+        {
+            await _mailService.SendMailAsync("zng.caferaydin@gmail.com", "Test", "Deneme");
+
+            return Ok();
+        }
 
         public class ProductManager
         {

@@ -1,7 +1,7 @@
 using System;
 using CNSMarketing.Domain.Entity.Common;
 using CNSMarketing.Persistence.Context;
-using CNSMarketing.Service.Repositories;
+using CNSMarketing.Application.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 

@@ -1,14 +1,15 @@
-﻿using CNSMarketing.Infrastructure.Enums;
+﻿using CNSMarketing.Application.Abstraction.ExternalService;
+using CNSMarketing.Application.Abstraction.ExternalService.SocialMedia;
+using CNSMarketing.Application.Abstraction.Storage;
+using CNSMarketing.Application.Abstraction.Token;
+using CNSMarketing.Infrastructure.Enums;
 using CNSMarketing.Infrastructure.Services;
 using CNSMarketing.Infrastructure.Services.SocialMedia;
 using CNSMarketing.Infrastructure.Services.Storage;
 using CNSMarketing.Infrastructure.Services.Storage.Azure;
 using CNSMarketing.Infrastructure.Services.Storage.Local;
 using CNSMarketing.Infrastructure.Services.Token;
-using CNSMarketing.Service.Abstraction.ExternalService;
-using CNSMarketing.Service.Abstraction.ExternalService.SocialMedia;
-using CNSMarketing.Service.Abstraction.Storage;
-using CNSMarketing.Service.Abstraction.Token;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
@@ -17,11 +18,14 @@ namespace CNSMarketing.Infrastructure
 {
     public static class InfrastructureServiceRegistration
     {
-        public static void AddInfrastructureServiceRegistration(this IServiceCollection service)
+        public static void AddInfrastructureServiceRegistration(this IServiceCollection service, IConfiguration configuration)
         {
             service.AddScoped<IStorageService, StorageService>();
             service.AddScoped<ITokenHandler, TokenHandler>();
             service.AddScoped<IMailService, MailService>();
+
+
+            //service.AddSingleton<IChatGptService>(new ChatGptService(configuration["openAiApiKey"]!));
 
 
             service.AddScoped<ILinkedlnExternalService, LinkedlnExternalService>();

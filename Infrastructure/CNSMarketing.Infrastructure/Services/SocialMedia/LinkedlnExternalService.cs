@@ -1,11 +1,11 @@
 ﻿using Azure.Core;
-using CNSMarketing.Service.Abstraction.ExternalService;
-using CNSMarketing.Service.Abstraction.ExternalService.SocialMedia;
-using CNSMarketing.Service.Helpers;
-using CNSMarketing.Service.Models.DTOs;
-using CNSMarketing.Service.Models.SocialMedia;
-using CNSMarketing.Service.Models.SocialMedia.ExternalModel.Linkedln;
-using CNSMarketing.Service.Models.SocialMedia.Model.Linkedln;
+using CNSMarketing.Application.Abstraction.ExternalService;
+using CNSMarketing.Application.Abstraction.ExternalService.SocialMedia;
+using CNSMarketing.Application.Helpers;
+using CNSMarketing.Application.Models.DTOs;
+using CNSMarketing.Application.Models.SocialMedia;
+using CNSMarketing.Application.Models.SocialMedia.ExternalModel.Linkedln;
+using CNSMarketing.Application.Models.SocialMedia.Model.Linkedln;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
@@ -49,7 +49,8 @@ namespace CNSMarketing.Infrastructure.Services.SocialMedia
         {
             var baseUrl = "https://www.linkedin.com/oauth/v2/authorization";
             var responseType = "code";
-            var scope = "openid profile r_ads_reporting r_organization_social rw_organization_admin w_member_social r_ads w_organization_social rw_ads r_basicprofile r_organization_admin email r_1st_connections_size r_member_social w_compliance";
+            //var scope = "openid profile r_ads_reporting r_organization_social rw_organization_admin w_member_social r_ads w_organization_social rw_ads r_basicprofile r_organization_admin email r_1st_connections_size r_member_social w_compliance";
+            var scope = "openid profile r_ads_reporting r_organization_social rw_organization_admin w_member_social r_ads w_organization_social rw_ads r_basicprofile r_organization_admin email r_1st_connections_size";
 
             var redirectUrl = $"{baseUrl}?response_type={responseType}&client_id={conf.LinkedinClientId}&redirect_uri={Uri.EscapeDataString(conf.AppRedirectUrl)}&scope={Uri.EscapeDataString(scope)}";
 

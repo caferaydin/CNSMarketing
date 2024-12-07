@@ -1,4 +1,4 @@
-﻿using CNSMarketing.Service.Abstraction.ExternalService;
+﻿using CNSMarketing.Application.Abstraction.ExternalService;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Net;

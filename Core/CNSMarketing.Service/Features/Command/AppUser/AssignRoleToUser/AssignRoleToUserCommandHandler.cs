@@ -1,7 +1,7 @@
-﻿using CNSMarketing.Service.Abstraction.Service.UserRole;
+﻿using CNSMarketing.Application.Abstraction.Service.UserRole;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.AssignRoleToUser
+namespace CNSMarketing.Application.Features.Command.AppUser.AssignRoleToUser
 {
     public class AssignRoleToUserCommandHandler : IRequestHandler<AssignRoleToUserCommandRequest, BaseCommandResponseModel>
     {
@@ -17,8 +17,8 @@ namespace CNSMarketing.Service.Features.Command.AppUser.AssignRoleToUser
 
             return new()
             {
-                success = true,
-                message = "Complated."
+                IsSuccess = true,
+                Message = "Complated."
             };
         }
     }

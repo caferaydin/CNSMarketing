@@ -1,9 +1,9 @@
 using System;
-using CNSMarketing.Service.Abstraction.Service.Authentication;
-using CNSMarketing.Service.Abstraction.Service.UserRole;
+using CNSMarketing.Application.Abstraction.Service.Authentication;
+using CNSMarketing.Application.Abstraction.Service.UserRole;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.Role.CreateRole;
+namespace CNSMarketing.Application.Features.Command.Role.CreateRole;
 
 public class CreateRoleCommandHandler  : IRequestHandler<CreateRoleCommandRequest, BaseCommandResponseModel>
 {
@@ -19,7 +19,7 @@ public class CreateRoleCommandHandler  : IRequestHandler<CreateRoleCommandReques
         var result = await _roleService.CreateRole(request.Name, request.Description);
         return new()
         {
-            success = result
+            IsSuccess = result
         };
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace CNSMarketing.Service.Models.Responses.Common;
+namespace CNSMarketing.Application.Models.Responses.Common;
 
 public class TokenResponseModel
 {

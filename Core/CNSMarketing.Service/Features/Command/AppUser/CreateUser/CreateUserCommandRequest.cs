@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.CreateUser
+namespace CNSMarketing.Application.Features.Command.AppUser.CreateUser
 {
     public class CreateUserCommandRequest : IRequest<BaseCommandResponseModel>
     {

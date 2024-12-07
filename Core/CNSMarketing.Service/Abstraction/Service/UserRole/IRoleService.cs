@@ -1,6 +1,6 @@
-using CNSMarketing.Service.Models.Responses.Authentication;
+using CNSMarketing.Application.Models.Responses.Authentication;
 
-namespace CNSMarketing.Service.Abstraction.Service.UserRole;
+namespace CNSMarketing.Application.Abstraction.Service.UserRole;
 
 public interface IRoleService
 {

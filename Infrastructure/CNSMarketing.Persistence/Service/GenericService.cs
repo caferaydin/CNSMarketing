@@ -1,7 +1,8 @@
 ﻿using CNSMarketing.Domain.Entity.Common;
-using CNSMarketing.Service.Abstraction;
-using CNSMarketing.Service.Repositories;
+using CNSMarketing.Application.Abstraction;
+using CNSMarketing.Application.Repositories;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CNSMarketing.Persistence.Service
 {
@@ -33,6 +34,10 @@ namespace CNSMarketing.Persistence.Service
             return _readRepository.GetAll(tracking);
         }
 
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        {
+            return await _readRepository.GetWhere(x => x.IsActive == true).ToListAsync();
+        }
 
         public async Task AddAsync(TEntity entity)
         {
@@ -81,5 +86,7 @@ namespace CNSMarketing.Persistence.Service
 
             return result;
         }
+
+
     }
 }

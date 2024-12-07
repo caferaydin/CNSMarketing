@@ -1,4 +1,4 @@
-﻿namespace CNSMarketing.Service.Abstraction.Storage.Azure
+﻿namespace CNSMarketing.Application.Abstraction.Storage.Azure
 {
     public interface IAzureStorage : IStorage
     {

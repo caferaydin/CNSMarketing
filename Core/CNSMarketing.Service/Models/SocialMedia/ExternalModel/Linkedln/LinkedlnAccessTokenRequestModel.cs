@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace CNSMarketing.Service.Models.SocialMedia.ExternalModel.Linkedln
+namespace CNSMarketing.Application.Models.SocialMedia.ExternalModel.Linkedln
 {
     public class LinkedlnAccessTokenRequestModel
     {

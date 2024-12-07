@@ -1,9 +1,9 @@
 ﻿using CNSMarketing.Domain.Entity.Common;
-using CNSMarketing.Service.Abstraction.ExternalService.SocialMedia;
-using CNSMarketing.Service.Models.SocialMedia.ExternalModel.Linkedln;
-using CNSMarketing.Service.Models.SocialMedia.Model.Linkedln;
+using CNSMarketing.Application.Abstraction.ExternalService.SocialMedia;
+using CNSMarketing.Application.Models.SocialMedia.ExternalModel.Linkedln;
+using CNSMarketing.Application.Models.SocialMedia.Model.Linkedln;
 
-namespace CNSMarketing.Service.Abstraction.Service.SocialMedia
+namespace CNSMarketing.Application.Abstraction.Service.SocialMedia
 {
     public interface ILinkedlnService : ISocialMediaService
     {

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Text.Json.Serialization;
 
-namespace CNSMarketing.Service.Helpers
+namespace CNSMarketing.Application.Helpers
 {
     public static class ApiHelper
     {

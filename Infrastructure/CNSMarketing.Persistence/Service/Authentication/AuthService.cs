@@ -1,13 +1,12 @@
-﻿using CNSMarketing.Domain.Entity.Authentication;
-using CNSMarketing.Service.Abstraction.ExternalService;
-using CNSMarketing.Service.Abstraction.Service.Authentication;
-using CNSMarketing.Service.Abstraction.Service.UserRole;
-using CNSMarketing.Service.Abstraction.Token;
-using CNSMarketing.Service.Exceptions.Authentication;
-using CNSMarketing.Service.Helpers;
-using CNSMarketing.Service.Models.DTOs;
-using CNSMarketing.Service.Models.Responses.Common;
-using Google.Apis.Auth.OAuth2.Responses;
+﻿using CNSMarketing.Application.Abstraction.ExternalService;
+using CNSMarketing.Application.Abstraction.Service.Authentication;
+using CNSMarketing.Application.Abstraction.Service.UserRole;
+using CNSMarketing.Application.Abstraction.Token;
+using CNSMarketing.Application.Exceptions.Authentication;
+using CNSMarketing.Application.Helpers;
+using CNSMarketing.Application.Models.DTOs;
+using CNSMarketing.Application.Models.Responses.Common;
+using CNSMarketing.Domain.Entity.Authentication;
 using MapsterMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
@@ -94,7 +93,7 @@ namespace CNSMarketing.Persistence.Service.Authentication
             SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
             if (result.Succeeded) //Authentication başarılı!
             {
-                //await _signInManager.SignInAsync(user, isPersistent: false);
+                await _signInManager.SignInAsync(user, isPersistent: false);
                 TokenResponseModel tokenResponse = await _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
                 var token = _mapper.Map<Token>(tokenResponse);
                 await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 15);

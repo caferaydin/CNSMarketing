@@ -1,6 +1,6 @@
-﻿using CNSMarketing.Service.Models.Responses.Authentication;
+﻿using CNSMarketing.Application.Models.Responses.Authentication;
 
-namespace CNSMarketing.Service.Features.Queries.Role.GetRoles
+namespace CNSMarketing.Application.Features.Queries.Role.GetRoles
 {
     public class GetRolesQueryResponse
     {

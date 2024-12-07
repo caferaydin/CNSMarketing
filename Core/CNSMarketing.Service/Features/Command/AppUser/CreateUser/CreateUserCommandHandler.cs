@@ -1,8 +1,8 @@
-﻿using CNSMarketing.Service.Abstraction.Service.UserRole;
-using CNSMarketing.Service.Models.Responses.Authentication;
+﻿using CNSMarketing.Application.Abstraction.Service.UserRole;
+using CNSMarketing.Application.Models.Responses.Authentication;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.CreateUser
+namespace CNSMarketing.Application.Features.Command.AppUser.CreateUser
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommandRequest, BaseCommandResponseModel>
     {
@@ -26,8 +26,8 @@ namespace CNSMarketing.Service.Features.Command.AppUser.CreateUser
 
             return new()
             {
-                success = response.success,
-                message = response.message,
+                IsSuccess = response.success,
+                Message = response.message,
             };
 
             //throw new UserCreateFailedException();

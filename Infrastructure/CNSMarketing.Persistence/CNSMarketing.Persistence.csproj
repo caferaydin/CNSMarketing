@@ -7,12 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Configurations\**" />
-    <EmbeddedResource Remove="Configurations\**" />
-    <None Remove="Configurations\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
@@ -32,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\CNSMarketing.Service\CNSMarketing.Service.csproj" />
+    <ProjectReference Include="..\..\Core\CNSMarketing.Service\CNSMarketing.Application.csproj" />
     <ProjectReference Include="..\CNSMarketing.Infrastructure\CNSMarketing.Infrastructure.csproj" />
   </ItemGroup>
 

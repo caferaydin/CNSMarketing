@@ -1,7 +1,7 @@
-﻿using CNSMarketing.Service.Abstraction.Service.Authentication;
+﻿using CNSMarketing.Application.Abstraction.Service.Authentication;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.VerifyResetToken
+namespace CNSMarketing.Application.Features.Command.AppUser.VerifyResetToken
 {
     public class VerifyResetTokenCommandHandler : IRequestHandler<VerifyResetTokenCommandRequest, VerifyResetTokenCommandResponse>
     {

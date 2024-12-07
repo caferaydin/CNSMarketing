@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.RefreshTokenLogin
+namespace CNSMarketing.Application.Features.Command.AppUser.RefreshTokenLogin
 {
     public class RefreshTokenLoginCommandRequest : IRequest<RefreshTokenLoginCommandResponse>
     {

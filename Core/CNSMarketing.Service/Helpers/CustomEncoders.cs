@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 
-namespace CNSMarketing.Service.Helpers
+namespace CNSMarketing.Application.Helpers
 {
     static public class CustomEncoders
     {

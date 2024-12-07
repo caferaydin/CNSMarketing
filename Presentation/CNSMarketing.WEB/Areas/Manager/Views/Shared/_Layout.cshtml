@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    @await Html.PartialAsync("~/Views/ManagerLayoutPartial/_HeadPartial.cshtml")
+
+    @await RenderSectionAsync("Style", required: false)
+</head>
+<body>
+
+    <div id="global-loader">
+        <img src="~/assets/images/loader.svg" class="loader-img" alt="Loader">
+    </div>
+
+
+    <div class="page">
+
+        <div class="page-main">
+
+            @await Component.InvokeAsync("Header")
+
+
+            @await Component.InvokeAsync("NavigationMenu")
+
+            
+             <div class="main-content app-content mt-0">
+                <div class="side-app">
+                    @RenderBody()
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    @await Html.PartialAsync("~/Views/ManagerLayoutPartial/_SideBarPartial.cshtml")
+
+    @* @await Html.PartialAsync("~/Views/Shared/ManagerLayoutPartial/_CountrySelectorPartial.cshtml") *@
+
+    @await Html.PartialAsync("~/Views/ManagerLayoutPartial/_FooterPartial.cshtml")
+
+    <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+
+    @await Html.PartialAsync("~/Views/ManagerLayoutPartial/_ScriptsPartial.cshtml")
+
+
+   
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

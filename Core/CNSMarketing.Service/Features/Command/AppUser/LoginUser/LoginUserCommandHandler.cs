@@ -1,7 +1,7 @@
-﻿using CNSMarketing.Service.Abstraction.Service.Authentication;
+﻿using CNSMarketing.Application.Abstraction.Service.Authentication;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.LoginUser
+namespace CNSMarketing.Application.Features.Command.AppUser.LoginUser
 {
     public class LoginUserCommandHandler : IRequestHandler<LoginUserCommandRequest, LoginUserCommandResponse>
     {
@@ -17,7 +17,9 @@ namespace CNSMarketing.Service.Features.Command.AppUser.LoginUser
 
             return new LoginUserSuccessCommandResponse()
             {
-                Token = token
+                IsSuccess = true,
+                Token = token,
+               
             };
         }
     }

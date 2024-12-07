@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.Role.CreateRole;
+namespace CNSMarketing.Application.Features.Command.Role.CreateRole;
 
 public class CreateRoleCommandRequest : IRequest<BaseCommandResponseModel>
 {

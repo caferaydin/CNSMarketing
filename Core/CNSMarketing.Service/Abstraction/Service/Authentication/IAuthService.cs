@@ -1,7 +1,7 @@
 using System;
-using CNSMarketing.Service.Abstraction.ExternalService;
+using CNSMarketing.Application.Abstraction.ExternalService;
 
-namespace CNSMarketing.Service.Abstraction.Service.Authentication;
+namespace CNSMarketing.Application.Abstraction.Service.Authentication;
 
 public interface IAuthService : IExternalAuthentication, IInternalAuthentication
 {

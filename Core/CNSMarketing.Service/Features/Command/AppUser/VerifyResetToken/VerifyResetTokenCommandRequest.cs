@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.VerifyResetToken
+namespace CNSMarketing.Application.Features.Command.AppUser.VerifyResetToken
 {
     public class VerifyResetTokenCommandRequest : IRequest<VerifyResetTokenCommandResponse>
     {

@@ -1,7 +1,7 @@
-﻿using CNSMarketing.Service.Abstraction.Service.UserRole;
+﻿using CNSMarketing.Application.Abstraction.Service.UserRole;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Queries.AppUser.GetAllUsers
+namespace CNSMarketing.Application.Features.Queries.AppUser.GetAllUsers
 {
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQueryRequest, GetAllUsersQueryResponse>
     {
@@ -14,7 +14,7 @@ namespace CNSMarketing.Service.Features.Queries.AppUser.GetAllUsers
 
         public async Task<GetAllUsersQueryResponse> Handle(GetAllUsersQueryRequest request, CancellationToken cancellationToken)
         {
-            var users = await _userService.GetAllUsersAsync(request.Page, request.Size);
+            var users = await _userService.GetAllUsersAsync(request.PageIndex, request.PageSize);
 
             return new()
             {

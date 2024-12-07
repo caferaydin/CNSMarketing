@@ -1,6 +1,6 @@
 ﻿using CNSMarketing.Domain.Entity.SocialMedia;
 using CNSMarketing.Persistence.Context;
-using CNSMarketing.Service.Repositories.SocialMedia;
+using CNSMarketing.Application.Repositories.SocialMedia;
 
 namespace CNSMarketing.Persistence.Repositories.SocialMedia
 {

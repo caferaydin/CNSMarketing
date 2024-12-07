@@ -1,8 +1,8 @@
 ﻿using CNSMarketing.Domain.Entity.Authentication;
 using CNSMarketing.Domain.Entity.Common;
-using CNSMarketing.Service.Abstraction.Token;
-using CNSMarketing.Service.Models.Responses.Common;
-using CNSMarketing.Service.Repositories.Manager;
+using CNSMarketing.Application.Abstraction.Token;
+using CNSMarketing.Application.Models.Responses.Common;
+using CNSMarketing.Application.Repositories.Manager;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -31,77 +31,6 @@ namespace CNSMarketing.Infrastructure.Services.Token
         }
 
 
-        //public TokenResponseModel CreateAccessToken(int second, AppUser user) // Todo AddDays
-        //{
-        //    TokenResponseModel token = new();
-
-        //    // Security Key'in simetriğini alıyoruz.
-        //    SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_configuration["Token:SecurityKey"]));
-
-        //    // Şifrelenmiş kimliği oluşturuyoruz.
-        //    SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256);
-
-        //    // Oluşturulacak token ayarlarını veriyoruz.
-        //    token.Expiration = DateTime.UtcNow.AddDays(60).AddSeconds(second); // UTC kullanımı
-        //    JwtSecurityToken securityToken = new(
-        //        audience: _configuration["Token:Audience"],
-        //        issuer: _configuration["Token:Issuer"],
-        //        expires: token.Expiration,
-        //        notBefore: DateTime.UtcNow,
-        //        signingCredentials: signingCredentials,
-        //        claims: new List<Claim>
-        //        {
-        //            new Claim(ClaimTypes.Name, user.UserName),
-        //            new Claim(ClaimTypes.Role, "Admin") // Kullanıcının rolü
-        //        }
-        //    );
-
-        //    // Token oluşturucu sınıfından bir örnek alalım.
-        //    JwtSecurityTokenHandler tokenHandler = new();
-        //    token.AccessToken = tokenHandler.WriteToken(securityToken);
-
-        //    token.RefreshToken = CreateRefreshToken();
-        //    return token;
-        //}
-
-        //public TokenResponseModel CreateAccessToken(int second, AppUser user)
-        //{
-        //    TokenResponseModel token = new();
-
-        //    //Security Key'in simetriğini alıyoruz.
-        //    SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_configuration["Token:SecurityKey"]));
-
-        //    //Şifrelenmiş kimliği oluşturuyoruz.
-        //    SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256);
-
-        //    //Oluşturulacak token ayarlarını veriyoruz.
-        //    token.Expiration = DateTime.Now.AddSeconds(second);
-        //    JwtSecurityToken securityToken = new(
-        //        audience: _configuration["Token:Audience"],
-        //        issuer: _configuration["Token:Issuer"],
-        //        expires: token.Expiration,
-        //        notBefore: DateTime.UtcNow,
-        //        signingCredentials: signingCredentials,
-        //        claims: new List<Claim> { new(ClaimTypes.Name, user.UserName) }
-        //        );
-
-        //    //Token oluşturucu sınıfından bir örnek alalım.
-        //    JwtSecurityTokenHandler tokenHandler = new();
-        //    token.AccessToken = tokenHandler.WriteToken(securityToken);
-
-        //    //string refreshToken = CreateRefreshToken();
-
-        //    token.RefreshToken = CreateRefreshToken();
-        //    return token;
-        //}
-
-        //public string CreateRefreshToken()
-        //{
-        //    byte[] number = new byte[32];
-        //    using RandomNumberGenerator random = RandomNumberGenerator.Create();
-        //    random.GetBytes(number);
-        //    return Convert.ToBase64String(number);
-        //}
         public async Task<TokenResponseModel> CreateAccessToken(int second, AppUser user)
         {
             TokenResponseModel token = new();

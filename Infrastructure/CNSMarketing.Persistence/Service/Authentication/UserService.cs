@@ -1,14 +1,24 @@
 ﻿using CNSMarketing.Domain.Entity.Authentication;
-using CNSMarketing.Service.Abstraction.Service.Manager;
-using CNSMarketing.Service.Abstraction.Service.UserRole;
-using CNSMarketing.Service.Exceptions.Authentication;
-using CNSMarketing.Service.Helpers;
-using CNSMarketing.Service.Models.Common;
-using CNSMarketing.Service.Models.Requests.Authentication;
-using CNSMarketing.Service.Models.Responses.Authentication;
-using CNSMarketing.Service.Models.ViewModels.User;
+using CNSMarketing.Application.Abstraction.ExternalService;
+using CNSMarketing.Application.Abstraction.Service.Manager;
+using CNSMarketing.Application.Abstraction.Service.UserRole;
+using CNSMarketing.Application.Exceptions.Authentication;
+using CNSMarketing.Application.Helpers;
+using CNSMarketing.Application.Models.Common;
+using CNSMarketing.Application.Models.Requests.Authentication;
+using CNSMarketing.Application.Models.Responses.Authentication;
+using CNSMarketing.Application.Models.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using CNSMarketing.Domain.Entity.Common;
+using CNSMarketing.Application.Repositories.Manager;
+using CNSMarketing.Application.Models.DTOs;
+using CNSMarketing.Application.Abstraction.Service.SocialMedia;
+using CNSMarketing.Application.Const;
+using CNSMarketing.Application.Models.SocialMedia.ExternalModel.Linkedln;
+using CNSMarketing.Application.Repositories.SocialMedia;
+using CNSMarketing.Infrastructure.Enums;
 
 namespace CNSMarketing.Persistence.Service.Authentication
 {
@@ -17,13 +27,23 @@ namespace CNSMarketing.Persistence.Service.Authentication
         #region Fields & Ctor
         readonly UserManager<AppUser> _userManager;
         private readonly ICustomerService _customerService;
+        private readonly IMailService _mailService;
+        private readonly IConfiguration _configuration;
+        private readonly ICustomerReadRepository _customerReadRepository;
+        private readonly ILinkedlnService _linkedlnService;
+        private readonly IAPITokenReadRepository _tokenReadRepository;
         //readonly IEndpointReadRepository _endpointReadRepository;
 
         public UserService(UserManager<AppUser> userManager, ICustomerService customerService
-            /*IEndpointReadRepository endpointReadRepository*/ )
+            , IMailService mailService/*IEndpointReadRepository endpointReadRepository*/ , IConfiguration configuration, ICustomerReadRepository customerReadRepository, ILinkedlnService linkedlnService, IAPITokenReadRepository tokenReadRepository)
         {
             _userManager = userManager;
             _customerService = customerService;
+            _mailService = mailService;
+            _configuration = configuration;
+            _customerReadRepository = customerReadRepository;
+            _linkedlnService = linkedlnService;
+            _tokenReadRepository = tokenReadRepository;
             //_endpointReadRepository = endpointReadRepository;
         }
 
@@ -71,14 +91,14 @@ namespace CNSMarketing.Persistence.Service.Authentication
 
             if (result.Succeeded)
             {
-                // Varsayılan olarak "User" rolünü ata
+                // Assign the "User" role by default
                 IdentityResult roleResult = await _userManager.AddToRoleAsync(user, "User");
-
-
 
                 if (roleResult.Succeeded)
                 {
-                    response.message = "Kullanıcı başarıyla oluşturulmuştur ve 'User' rolü atanmıştır.";
+                    await GetConfirmEmailAsync(user);
+
+                    response.message = "The user has been successfully created and assigned the 'User' role.";
 
                     await _customerService.AddAsync(new()
                     {
@@ -93,7 +113,7 @@ namespace CNSMarketing.Persistence.Service.Authentication
                 }
                 else
                 {
-                    response.message = "Kullanıcı oluşturuldu, ancak rol atama sırasında bir hata oluştu: ";
+                    response.message = "The user was created, but an error occurred during role assignment:";
                     foreach (var error in roleResult.Errors)
                     {
                         response.message += $"{error.Code} - {error.Description}\n";
@@ -111,6 +131,20 @@ namespace CNSMarketing.Persistence.Service.Authentication
             return response;
         }
 
+        public async Task GetConfirmEmailAsync(AppUser user)
+        {
+            // Generate email verification token
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            // Configuration made according to API
+            //var apiConfirmationLink = $"{_configuration["AppUrl"]}/api/v1/users/confirm-email?userId={user.Id}&token={Uri.EscapeDataString(token)}";
+
+            // Configuration made according to WEB
+            var webConfirmationLink = $"{_configuration["AppUrl"]}/Users/ConfirmEmail?userId={user.Id}&token={Uri.EscapeDataString(token)}";
+
+            // Send verification email
+            await _mailService.SendMailAsync(user.Email, "Email Verification", $"Please click on this link to verify your email: \n {webConfirmationLink}");
+        }
 
         public async Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime accessTokenDate, int addOnAccessTokenDate)
         {
@@ -123,6 +157,7 @@ namespace CNSMarketing.Persistence.Service.Authentication
             else
                 throw new NotFoundUserException();
         }
+
         public async Task UpdatePasswordAsync(string userId, string resetToken, string newPassword)
         {
             AppUser user = await _userManager.FindByIdAsync(userId);
@@ -136,25 +171,31 @@ namespace CNSMarketing.Persistence.Service.Authentication
                     throw new PasswordChangeFailedException();
             }
         }
+
         public async Task<PaginatedList<UserViewModel>> GetAllUsersAsync(int pageIndex, int pageSize)
         {
-            //var users = _userManager.Users.Where(x => x.EmailConfirmed == true).AsQueryable();
-            var users = _userManager.Users.AsQueryable();
-            var userModels = users.Select(user => new UserViewModel
-            {
-                Id = user.Id,
-                Email = user.Email,
-                NameSurname = user.NameSurname,
-                TwoFactorEnabled = user.TwoFactorEnabled,
-                UserName = user.UserName
-            }).AsQueryable();
+            var userModels = _userManager.Users
+                .Select(user => new UserViewModel
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    NameSurname = user.NameSurname,
+                    TwoFactorEnabled = user.TwoFactorEnabled,
+                    UserName = user.UserName
+                })
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize);
 
-            return await PaginatedList<UserViewModel>.CreateAsync(userModels, pageIndex, pageSize);
+            var totalCount = await _userManager.Users.CountAsync();
+
+            return new PaginatedList<UserViewModel>(await userModels.ToListAsync(), totalCount, pageIndex, pageSize);
+
 
 
         }
 
         public int TotalUsersCount => _userManager.Users.Count();
+
         public async Task AssignRoleToUserAsnyc(string userId, string[] roles)
         {
             AppUser? user = await _userManager.FindByIdAsync(userId);
@@ -166,6 +207,7 @@ namespace CNSMarketing.Persistence.Service.Authentication
                 await _userManager.AddToRolesAsync(user, roles);
             }
         }
+
         public async Task<string[]> GetRolesToUserAsync(string userIdOrName)
         {
             AppUser user = await _userManager.FindByIdAsync(userIdOrName);
@@ -198,35 +240,83 @@ namespace CNSMarketing.Persistence.Service.Authentication
             return user == null;
         }
 
+        public async Task<UserProfileViewModel> GetUserProfileAsync(AppUser user)
+        {
+            var info = await GetUser(user);
+
+            LinkedlnUserInfoResponseModel linkedlnProfil = new();
+            if (info.AccessToken != null)
+                 linkedlnProfil = await _linkedlnService.GetUserInfoAsync(info);
+
+            //    var linkedlnProfil = info.AccessToken != null 
+            //? await _linkedlnService.GetUserInfoAsync(info) 
+            //: null;
+
+            if (linkedlnProfil == null)
+            {
+                return new()
+                {
+                    NameSurName = user.NameSurname,
+                    UserName = user.UserName,
+                    Linkedln = null // Kullanıcının LinkedIn entegrasyonu yok
+                };
+            }
 
 
+            return new()
+            {
+                NameSurName = user.NameSurname,
+                UserName = user.UserName,
+                Linkedln = new()
+                {
+                    UserName = linkedlnProfil.name,
+                    FollowCount = null,
+                    Url = AppLinkConst.LINKEDIN_URL + "/in/" + linkedlnProfil.given_name + linkedlnProfil.family_name,
+                    img = linkedlnProfil.picture,
+                }
+            };
 
-        //public async Task<bool> HasRolePermissionToEndpointAsync(string name, string code)
-        //{
-        //    var userRoles = await GetRolesToUserAsync(name);
+        }
 
-        //    if (!userRoles.Any())
-        //        return false;
 
-        //    Endpoint? endpoint = await _endpointReadRepository.Table
-        //             .Include(e => e.Roles)
-        //             .FirstOrDefaultAsync(e => e.Code == code);
+        #endregion
 
-        //    if (endpoint == null)
-        //        return false;
+        #region Private Method 
 
-        //    var hasRole = false;
-        //    var endpointRoles = endpoint.Roles.Select(r => r.Name);
+        private async Task<TokenInfo> GetUser(AppUser user)
+        {
+            var customer = _customerReadRepository.GetWhere(x => x.UserId == user.Id).FirstOrDefault()!;
 
-        //    foreach (var userRole in userRoles)
-        //    {
-        //        foreach (var endpointRole in endpointRoles)
-        //            if (userRole == endpointRole)
-        //                return true;
-        //    }
 
-        //    return false;
-        //}
+            var linkedinToken = await _tokenReadRepository.GetSingleAsync
+                (x => x.ApiId == (int)ApiName.Linkedln
+                   && x.IsActive == (int)TokenStatus.Active
+                   && x.CustomerId == customer.Id);
+
+            if (linkedinToken == null)
+            {
+                return new TokenInfo
+                {
+                    CustomerId = 1,
+                    UserId = user.Id,
+                    UserFullName = user.NameSurname,
+                    ExpireDate = user.RefreshTokenEndDate,
+                    UserLoginName = user.UserName
+                };
+            }
+
+
+            return new TokenInfo
+            {
+                CustomerId = customer.Id,
+                UserId = user.Id,
+                UserFullName = user.NameSurname,
+                ExpireDate = user.RefreshTokenEndDate,
+                UserLoginName = user.UserName,
+                AccessToken = linkedinToken.AccessToken,
+            };
+
+        }
 
         #endregion
     }

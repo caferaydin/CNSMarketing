@@ -1,8 +1,8 @@
 ﻿using CNSMarketing.Domain.Entity.Common;
 using CNSMarketing.Infrastructure.Enums;
-using CNSMarketing.Service.Abstraction.Service.SocialMedia;
-using CNSMarketing.Service.Abstraction.Token;
-using CNSMarketing.Service.Models.SocialMedia.Model;
+using CNSMarketing.Application.Abstraction.Service.SocialMedia;
+using CNSMarketing.Application.Abstraction.Token;
+using CNSMarketing.Application.Models.SocialMedia.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CNSMarketing.API.Controllers.SocialMedia

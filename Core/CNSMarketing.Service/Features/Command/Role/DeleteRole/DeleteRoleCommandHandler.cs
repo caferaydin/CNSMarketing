@@ -1,9 +1,9 @@
 using System;
-using CNSMarketing.Service.Abstraction.Service.Authentication;
-using CNSMarketing.Service.Abstraction.Service.UserRole;
+using CNSMarketing.Application.Abstraction.Service.Authentication;
+using CNSMarketing.Application.Abstraction.Service.UserRole;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.Role.DeleteRole;
+namespace CNSMarketing.Application.Features.Command.Role.DeleteRole;
 
 public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommandRequest, BaseCommandResponseModel>
 {
@@ -18,7 +18,7 @@ public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommandRequest
         var result = await _roleService.DeleteRole(request.Id);
         return new()
         {
-            success = result,
+            IsSuccess = result,
         };
     }
 }

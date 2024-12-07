@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    @await Html.PartialAsync("~/Views/Shared/LayoutPartial/_HeadPartial.cshtml")
+
+</head>
+<body class="app ltr landing-page horizontal">
+
+    <div id="global-loader">
+        <img src="~/assets/images/loader.svg" class="loader-img" alt="Loader">
+    </div>
+
+
+
+    <div class="page">
+        <div class="page-main">
+
+            <!-- app-Header -->
+            @await Html.PartialAsync("~/Views/Shared/LayoutPartial/_AppHeaderPartial.cshtml")
+            <!-- /app-Header -->
+
+            <!-- Navigation -->
+            @await Html.PartialAsync("~/Views/Shared/LayoutPartial/_NavigationPartial.cshtml")
+            <!-- Navigation -->
+
+            <div class="main-content mt-0">
+                <div class="side-app">
+                    @RenderBody()
+                </div>
+            </div>
+
+        </div>
+        @await Html.PartialAsync("~/Views/Shared/LayoutPartial/_FooterPartial.cshtml")
+
+    </div>
+
+    <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+
+
+    @await Html.PartialAsync("~/Views/Shared/LayoutPartial/_ScriptsPartial.cshtml")
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,9 +1,9 @@
 using System;
 using CNSMarketing.Domain.Entity.Authentication;
 using CNSMarketing.Domain.Entity.Common;
-using CNSMarketing.Service.Models.Responses.Common;
+using CNSMarketing.Application.Models.Responses.Common;
 
-namespace CNSMarketing.Service.Abstraction.Token;
+namespace CNSMarketing.Application.Abstraction.Token;
 
 public interface ITokenHandler
 {

@@ -1,10 +1,10 @@
 ﻿using CNSMarketing.Domain.Entity.Common;
 using CNSMarketing.Infrastructure.Enums;
-using CNSMarketing.Service.Abstraction.ExternalService.SocialMedia;
-using CNSMarketing.Service.Abstraction.Service.SocialMedia;
-using CNSMarketing.Service.Models.SocialMedia.ExternalModel.Linkedln;
-using CNSMarketing.Service.Models.SocialMedia.Model;
-using CNSMarketing.Service.Repositories.SocialMedia;
+using CNSMarketing.Application.Abstraction.ExternalService.SocialMedia;
+using CNSMarketing.Application.Abstraction.Service.SocialMedia;
+using CNSMarketing.Application.Models.SocialMedia.ExternalModel.Linkedln;
+using CNSMarketing.Application.Models.SocialMedia.Model;
+using CNSMarketing.Application.Repositories.SocialMedia;
 using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 

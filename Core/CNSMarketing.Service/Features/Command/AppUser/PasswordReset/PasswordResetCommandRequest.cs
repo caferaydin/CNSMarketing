@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.PasswordReset
+namespace CNSMarketing.Application.Features.Command.AppUser.PasswordReset
 {
     public class PasswordResetCommandRequest : IRequest<BaseCommandResponseModel>
     {

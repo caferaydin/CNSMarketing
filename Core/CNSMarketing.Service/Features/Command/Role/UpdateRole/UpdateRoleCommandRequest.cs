@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.Role.UpdateRole;
+namespace CNSMarketing.Application.Features.Command.Role.UpdateRole;
 
 public class UpdateRoleCommandRequest : IRequest<BaseCommandResponseModel>
 {

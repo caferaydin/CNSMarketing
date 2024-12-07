@@ -1,6 +1,6 @@
 using System;
 
-namespace CNSMarketing.Service.Exceptions.Authentication;
+namespace CNSMarketing.Application.Exceptions.Authentication;
 
 public class UserCreateFailedException : Exception
 {

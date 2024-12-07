@@ -1,8 +1,8 @@
-﻿using CNSMarketing.Service.Abstraction.Service.UserRole;
-using CNSMarketing.Service.Exceptions.Authentication;
+﻿using CNSMarketing.Application.Abstraction.Service.UserRole;
+using CNSMarketing.Application.Exceptions.Authentication;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.UpdatePassword
+namespace CNSMarketing.Application.Features.Command.AppUser.UpdatePassword
 {
     public class UpdatePasswordCommandHandler : IRequestHandler<UpdatePasswordCommandRequest, BaseCommandResponseModel>
     {

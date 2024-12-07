@@ -1,6 +1,6 @@
 ﻿using CNSMarketing.Domain.Entity.Common;
 using CNSMarketing.Infrastructure.Enums;
-using CNSMarketing.Service.Abstraction.Token;
+using CNSMarketing.Application.Abstraction.Token;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -81,26 +81,21 @@ namespace CNSMarketing.API.Controllers
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<TokenResult> TokenControl(HttpContext context)
         {
-            // Authorization header'dan Bearer token'ı al
             var accessToken = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            // Token'ı doğrula ve kullanıcı bilgilerini al
             tokenInfo = await _tokenHandler.GetUserFromTokenAsync(accessToken);
 
-            // Token geçersizse
             if (tokenInfo == null)
             {
-                return TokenResult.Invalid; // Geçersiz token
+                return TokenResult.Invalid; 
             }
 
-            // Kullanıcının token'ının süresini kontrol et
             if (tokenInfo.ExpireDate < DateTime.UtcNow)
             {
-                return TokenResult.Expired; // Token süresi dolmuş
+                return TokenResult.Expired;
             }
-
-            // Token geçerli ve süresi dolmamışsa, ikinci adıma geç
-            return TokenResult.Ok; // Token geçerli
+           
+            return TokenResult.Ok; 
         }
 
 

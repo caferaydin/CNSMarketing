@@ -1,4 +1,4 @@
-﻿namespace CNSMarketing.Service.Models.SocialMedia.Model.Linkedln
+﻿namespace CNSMarketing.Application.Models.SocialMedia.Model.Linkedln
 {
     public class LinkedlnDeleteCommentRequestModel
     {

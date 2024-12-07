@@ -1,10 +1,15 @@
 using System;
+using System.Text.Json.Serialization;
 
-namespace CNSMarketing.Service.Features.Command;
+namespace CNSMarketing.Application.Features.Command;
 
 public class BaseCommandResponseModel
 {
-    public bool success { get; set; }
-    public string message { get; set; }
+
+    [JsonPropertyName("success")]
+    public bool IsSuccess { get; set; }
+
+    [JsonPropertyName("message")]
+    public string? Message { get; set; }
 
 }

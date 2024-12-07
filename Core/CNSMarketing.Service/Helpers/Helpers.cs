@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace CNSMarketing.Service.Helpers
+namespace CNSMarketing.Application.Helpers
 {
     public static class Helpers
     {

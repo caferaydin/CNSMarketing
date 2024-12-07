@@ -1,11 +1,11 @@
-using System;
-using System.Reflection;
 using CNSMarketing.Domain.Entity.Authentication;
 using CNSMarketing.Domain.Entity.Common;
 using CNSMarketing.Domain.Entity.Manager;
 using CNSMarketing.Domain.Entity.SocialMedia;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using CNSMarketing.Domain.Entities;
 
 namespace CNSMarketing.Persistence.Context;
 
@@ -17,16 +17,23 @@ public class CNSMarketingDbContext : IdentityDbContext<AppUser, AppRole, string>
 
     #region  DataTable
 
+    public DbSet<Menu> Menus { get; set; }
+    public DbSet<MenuRolePermission> MenuRolePermissions { get; set; }
+
     public DbSet<Customer> Customers { get; set; }
+
+    // Social Media API
     public DbSet<API> API { get; set; }
-    public DbSet<APIToken> APIToken { get; set; }
+    public DbSet<APIToken> API_TOKEN { get; set; }
+
+
 
     #endregion
 
 
 
     #region  Reflection 
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 

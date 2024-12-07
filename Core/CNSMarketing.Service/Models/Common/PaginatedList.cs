@@ -1,7 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace CNSMarketing.Service.Models.Common;
+namespace CNSMarketing.Application.Models.Common;
 
     public class PaginatedList<T> : List<T>
     {

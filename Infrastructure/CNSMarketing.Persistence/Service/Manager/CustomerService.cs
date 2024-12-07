@@ -1,6 +1,6 @@
 ﻿using CNSMarketing.Domain.Entity.Manager;
-using CNSMarketing.Service.Abstraction.Service.Manager;
-using CNSMarketing.Service.Repositories.Manager;
+using CNSMarketing.Application.Abstraction.Service.Manager;
+using CNSMarketing.Application.Repositories.Manager;
 
 namespace CNSMarketing.Persistence.Service.Manager
 {

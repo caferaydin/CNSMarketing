@@ -1,7 +1,7 @@
 ﻿using CNSMarketing.Domain.Entity.Common;
-using CNSMarketing.Service.Models.SocialMedia.Model;
+using CNSMarketing.Application.Models.SocialMedia.Model;
 
-namespace CNSMarketing.Service.Abstraction.Service.SocialMedia
+namespace CNSMarketing.Application.Abstraction.Service.SocialMedia
 {
     public interface ISocialPostService
     {

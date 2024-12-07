@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CNSMarketing.Service.Features.Queries.Role.GetRoleById
+namespace CNSMarketing.Application.Features.Queries.Role.GetRoleById
 {
     public class GetRoleByIdQueryRequest : IRequest<GetRoleByIdQueryResponse>
     {

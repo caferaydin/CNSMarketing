@@ -1,4 +1,4 @@
-namespace CNSMarketing.Service.Models.Responses.Authentication;
+namespace CNSMarketing.Application.Models.Responses.Authentication;
 
 public class RoleResponseModel
 {

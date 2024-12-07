@@ -1,4 +1,4 @@
-﻿using CNSMarketing.Service.Abstraction.Storage;
+﻿using CNSMarketing.Application.Abstraction.Storage;
 using Microsoft.AspNetCore.Http;
 
 namespace CNSMarketing.Infrastructure.Services.Storage

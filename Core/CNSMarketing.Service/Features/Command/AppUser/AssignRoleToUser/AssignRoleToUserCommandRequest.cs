@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.AssignRoleToUser
+namespace CNSMarketing.Application.Features.Command.AppUser.AssignRoleToUser
 {
     public class AssignRoleToUserCommandRequest : IRequest<BaseCommandResponseModel>
     {

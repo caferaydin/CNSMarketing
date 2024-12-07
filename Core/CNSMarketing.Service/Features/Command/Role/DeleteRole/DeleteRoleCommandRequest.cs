@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.Role.DeleteRole;
+namespace CNSMarketing.Application.Features.Command.Role.DeleteRole;
 
 public class DeleteRoleCommandRequest : IRequest<BaseCommandResponseModel>
 {

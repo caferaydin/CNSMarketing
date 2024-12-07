@@ -1,4 +1,4 @@
-﻿namespace CNSMarketing.Service.Models.SocialMedia
+﻿namespace CNSMarketing.Application.Models.SocialMedia
 {
     public  class SocialMediaConfigurationModel
     {

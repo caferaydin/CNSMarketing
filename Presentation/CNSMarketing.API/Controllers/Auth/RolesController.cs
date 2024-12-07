@@ -1,9 +1,9 @@
-﻿using CNSMarketing.Service.Features.Command;
-using CNSMarketing.Service.Features.Command.Role.CreateRole;
-using CNSMarketing.Service.Features.Command.Role.DeleteRole;
-using CNSMarketing.Service.Features.Command.Role.UpdateRole;
-using CNSMarketing.Service.Features.Queries.Role.GetRoleById;
-using CNSMarketing.Service.Features.Queries.Role.GetRoles;
+﻿using CNSMarketing.Application.Features.Command;
+using CNSMarketing.Application.Features.Command.Role.CreateRole;
+using CNSMarketing.Application.Features.Command.Role.DeleteRole;
+using CNSMarketing.Application.Features.Command.Role.UpdateRole;
+using CNSMarketing.Application.Features.Queries.Role.GetRoleById;
+using CNSMarketing.Application.Features.Queries.Role.GetRoles;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

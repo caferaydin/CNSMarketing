@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using CNSMarketing.Domain.Entity.Common;
 using CNSMarketing.Persistence.Context;
-using CNSMarketing.Service.Repositories;
+using CNSMarketing.Application.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

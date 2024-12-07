@@ -2,13 +2,13 @@
 using CNSMarketing.Domain.Entity.SocialMedia;
 using CNSMarketing.Infrastructure.Enums;
 using CNSMarketing.Infrastructure.Services.SocialMedia;
-using CNSMarketing.Service.Abstraction.ExternalService.SocialMedia;
-using CNSMarketing.Service.Abstraction.Service.SocialMedia;
-using CNSMarketing.Service.Helpers;
-using CNSMarketing.Service.Models.SocialMedia;
-using CNSMarketing.Service.Models.SocialMedia.ExternalModel.Linkedln;
-using CNSMarketing.Service.Models.SocialMedia.Model.Linkedln;
-using CNSMarketing.Service.Repositories.SocialMedia;
+using CNSMarketing.Application.Abstraction.ExternalService.SocialMedia;
+using CNSMarketing.Application.Abstraction.Service.SocialMedia;
+using CNSMarketing.Application.Helpers;
+using CNSMarketing.Application.Models.SocialMedia;
+using CNSMarketing.Application.Models.SocialMedia.ExternalModel.Linkedln;
+using CNSMarketing.Application.Models.SocialMedia.Model.Linkedln;
+using CNSMarketing.Application.Repositories.SocialMedia;
 
 namespace CNSMarketing.Persistence.Service.SocialMedia
 {

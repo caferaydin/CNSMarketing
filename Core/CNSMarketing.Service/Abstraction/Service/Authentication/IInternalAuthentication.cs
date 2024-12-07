@@ -1,6 +1,6 @@
 using System;
 
-namespace CNSMarketing.Service.Abstraction.Service.Authentication;
+namespace CNSMarketing.Application.Abstraction.Service.Authentication;
 
 public interface IInternalAuthentication
 {

@@ -1,4 +1,4 @@
-﻿using CNSMarketing.Service.Abstraction.Storage.Local;
+﻿using CNSMarketing.Application.Abstraction.Storage.Local;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
@@ -34,7 +34,7 @@ namespace CNSMarketing.Infrastructure.Services.Storage.Local
             }
             catch (Exception ex)
             {
-                //todo log!
+                //todo1 log!
                 throw ex;
             }
         }

@@ -1,6 +1,6 @@
 using System;
 
-namespace CNSMarketing.Service.Models.ViewModels.User;
+namespace CNSMarketing.Application.Models.ViewModels.User;
 
 public class UserViewModel
 {

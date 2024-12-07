@@ -1,7 +1,7 @@
-using CNSMarketing.Service.Abstraction.Service.UserRole;
+using CNSMarketing.Application.Abstraction.Service.UserRole;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.Role.UpdateRole;
+namespace CNSMarketing.Application.Features.Command.Role.UpdateRole;
 
 public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommandRequest, BaseCommandResponseModel>
 {
@@ -16,7 +16,7 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommandRequest
         var result = await _roleService.UpdateRole(request.Id, request.Name);
         return new()
         {
-            success = result
+            IsSuccess = result
         };
     }
 }

@@ -1,7 +1,7 @@
-﻿using CNSMarketing.Service.Abstraction.Service.Authentication;
+﻿using CNSMarketing.Application.Abstraction.Service.Authentication;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.PasswordReset
+namespace CNSMarketing.Application.Features.Command.AppUser.PasswordReset
 {
     public class PasswordResetCommandHandler : IRequestHandler<PasswordResetCommandRequest, BaseCommandResponseModel>
     {
@@ -18,8 +18,8 @@ namespace CNSMarketing.Service.Features.Command.AppUser.PasswordReset
 
             return new()
             {
-                success = true,
-                message = ""
+                IsSuccess = true,
+                Message = ""
             };
         }
     }

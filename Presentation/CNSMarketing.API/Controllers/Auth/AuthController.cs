@@ -1,8 +1,8 @@
-﻿using CNSMarketing.Service.Features.Command;
-using CNSMarketing.Service.Features.Command.AppUser.LoginUser;
-using CNSMarketing.Service.Features.Command.AppUser.PasswordReset;
-using CNSMarketing.Service.Features.Command.AppUser.RefreshTokenLogin;
-using CNSMarketing.Service.Features.Command.AppUser.VerifyResetToken;
+﻿using CNSMarketing.Application.Features.Command;
+using CNSMarketing.Application.Features.Command.AppUser.LoginUser;
+using CNSMarketing.Application.Features.Command.AppUser.PasswordReset;
+using CNSMarketing.Application.Features.Command.AppUser.RefreshTokenLogin;
+using CNSMarketing.Application.Features.Command.AppUser.VerifyResetToken;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

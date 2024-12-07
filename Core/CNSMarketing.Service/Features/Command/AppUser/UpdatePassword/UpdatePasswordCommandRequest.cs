@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.UpdatePassword
+namespace CNSMarketing.Application.Features.Command.AppUser.UpdatePassword
 {
     public class UpdatePasswordCommandRequest : IRequest<BaseCommandResponseModel>
     {

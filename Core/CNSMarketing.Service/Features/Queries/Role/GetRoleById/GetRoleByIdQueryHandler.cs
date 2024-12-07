@@ -1,7 +1,7 @@
-﻿using CNSMarketing.Service.Abstraction.Service.UserRole;
+﻿using CNSMarketing.Application.Abstraction.Service.UserRole;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Queries.Role.GetRoleById
+namespace CNSMarketing.Application.Features.Queries.Role.GetRoleById
 {
     public class GetRoleByIdQueryHandler : IRequestHandler<GetRoleByIdQueryRequest, GetRoleByIdQueryResponse>
     {

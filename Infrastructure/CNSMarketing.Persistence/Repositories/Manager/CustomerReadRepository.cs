@@ -1,6 +1,6 @@
 ﻿using CNSMarketing.Domain.Entity.Manager;
 using CNSMarketing.Persistence.Context;
-using CNSMarketing.Service.Repositories.Manager;
+using CNSMarketing.Application.Repositories.Manager;
 
 namespace CNSMarketing.Persistence.Repositories.Manager
 {

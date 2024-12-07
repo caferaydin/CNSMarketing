@@ -1,7 +1,6 @@
-﻿using CNSMarketing.Service.Models.SocialMedia;
-using CNSMarketing.Service.Models.SocialMedia.ExternalModel.Linkedln;
+﻿using CNSMarketing.Application.Models.SocialMedia;
 
-namespace CNSMarketing.Service.Abstraction.ExternalService.SocialMedia
+namespace CNSMarketing.Application.Abstraction.ExternalService.SocialMedia
 {
     public interface ISocialMediaService
     {

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CNSMarketing.Service.Features.Queries.AppUser.GetRolesToUser
+namespace CNSMarketing.Application.Features.Queries.AppUser.GetRolesToUser
 {
     public class GetRolesToUserQueryRequest : IRequest<GetRolesToUserQueryResponse>
     {

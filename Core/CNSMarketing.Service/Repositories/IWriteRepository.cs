@@ -1,6 +1,6 @@
 using CNSMarketing.Domain.Entity.Common;
 
-namespace CNSMarketing.Service.Repositories;
+namespace CNSMarketing.Application.Repositories;
 
 public interface IWriteRepository<T, Val> : IRepository<T, Val> where T : BaseEntity<Val>
     {

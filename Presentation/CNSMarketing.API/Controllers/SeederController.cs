@@ -1,6 +1,6 @@
 ﻿using CNSMarketing.Domain.Entity.Authentication;
 using CNSMarketing.Persistence.Service.Authentication;
-using CNSMarketing.Service.Abstraction.Service.UserRole;
+using CNSMarketing.Application.Abstraction.Service.UserRole;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

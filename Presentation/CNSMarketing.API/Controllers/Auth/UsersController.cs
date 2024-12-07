@@ -1,14 +1,12 @@
-﻿using CNSMarketing.Service.Abstraction.ExternalService;
-using CNSMarketing.Service.Features.Command;
-using CNSMarketing.Service.Features.Command.AppUser.AssignRoleToUser;
-using CNSMarketing.Service.Features.Command.AppUser.CreateUser;
-using CNSMarketing.Service.Features.Command.AppUser.UpdatePassword;
-using CNSMarketing.Service.Features.Queries.AppUser.GetAllUsers;
-using CNSMarketing.Service.Features.Queries.AppUser.GetRolesToUser;
+﻿using CNSMarketing.Application.Features.Command;
+using CNSMarketing.Application.Features.Command.AppUser.AssignRoleToUser;
+using CNSMarketing.Application.Features.Command.AppUser.CreateUser;
+using CNSMarketing.Application.Features.Command.AppUser.UpdatePassword;
+using CNSMarketing.Application.Features.Queries.AppUser.GetAllUsers;
+using CNSMarketing.Application.Features.Queries.AppUser.GetRolesToUser;
+using CNSMarketing.Domain.Entity.Authentication;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CNSMarketing.API.Controllers.Auth
@@ -18,11 +16,11 @@ namespace CNSMarketing.API.Controllers.Auth
     public class UsersController : ControllerBase
     {
         readonly IMediator _mediator;
-        readonly IMailService _mailService;
-        public UsersController(IMediator mediator, IMailService mailService)
+        readonly UserManager<AppUser> _userManager;
+        public UsersController(IMediator mediator, UserManager<AppUser> userManager)
         {
             _mediator = mediator;
-            _mailService = mailService;
+            _userManager = userManager;
         }
 
         [HttpPost]
@@ -30,6 +28,20 @@ namespace CNSMarketing.API.Controllers.Auth
         {
             BaseCommandResponseModel response = await _mediator.Send(createUserCommandRequest);
             return Ok(response);
+        }
+
+        [HttpGet("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return BadRequest("Geçersiz kullanıcı.");
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+                return Ok("E-posta başarıyla doğrulandı!");
+
+            return BadRequest("E-posta doğrulama işlemi başarısız.");
         }
 
         [HttpPost("update-password")]

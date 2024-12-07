@@ -1,4 +1,4 @@
-﻿using CNSMarketing.Service.Abstraction.ExternalService;
+﻿using CNSMarketing.Application.Abstraction.ExternalService;
 using Microsoft.Extensions.Configuration;
 using System.Net;
 using System.Net.Mail;
@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CNSMarketing.Infrastructure.Services
 {
-    public class MailService : IMailService // TODO
+    public class MailService : IMailService // TODO1
     {
         readonly IConfiguration _configuration;
 
@@ -27,7 +27,7 @@ namespace CNSMarketing.Infrastructure.Services
                 mail.To.Add(to);
             mail.Subject = subject;
             mail.Body = body;
-            mail.From = new(_configuration["Mail:Username"], "NG E-Ticaret", System.Text.Encoding.UTF8);
+            mail.From = new(_configuration["Mail:Username"], "CNS Marketing", System.Text.Encoding.UTF8);
 
             SmtpClient smtp = new();
             smtp.Credentials = new NetworkCredential(_configuration["Mail:Username"], _configuration["Mail:Password"]);

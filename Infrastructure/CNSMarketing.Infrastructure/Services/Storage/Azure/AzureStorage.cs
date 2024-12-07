@@ -1,6 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using CNSMarketing.Service.Abstraction.Storage.Azure;
+using CNSMarketing.Application.Abstraction.Storage.Azure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace CNSMarketing.Service.Abstraction.Storage
+namespace CNSMarketing.Application.Abstraction.Storage
 {
     public interface IStorage
     {

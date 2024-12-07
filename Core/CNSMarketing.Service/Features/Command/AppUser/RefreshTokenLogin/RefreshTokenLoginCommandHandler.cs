@@ -1,8 +1,8 @@
-﻿using CNSMarketing.Service.Abstraction.Service.Authentication;
-using CNSMarketing.Service.Models.DTOs;
+﻿using CNSMarketing.Application.Abstraction.Service.Authentication;
+using CNSMarketing.Application.Models.DTOs;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Command.AppUser.RefreshTokenLogin
+namespace CNSMarketing.Application.Features.Command.AppUser.RefreshTokenLogin
 {
     public class RefreshTokenLoginCommandHandler : IRequestHandler<RefreshTokenLoginCommandRequest, RefreshTokenLoginCommandResponse>
     {
@@ -15,8 +15,19 @@ namespace CNSMarketing.Service.Features.Command.AppUser.RefreshTokenLogin
         public async Task<RefreshTokenLoginCommandResponse> Handle(RefreshTokenLoginCommandRequest request, CancellationToken cancellationToken)
         {
             Token token = await _authService.RefreshTokenLoginAsync(request.RefreshToken);
-            return new()
+
+            if (token == null)
             {
+                return new RefreshTokenLoginCommandResponse
+                {
+                    IsSuccess = false,
+                    Message = "Invalid or expired refresh token."
+                };
+            }
+
+            return new RefreshTokenLoginCommandResponse
+            {
+                IsSuccess = true,
                 Token = token
             };
         }

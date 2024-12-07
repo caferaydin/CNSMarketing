@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace CNSMarketing.Service
+namespace CNSMarketing.Application
 {
     public static class ServiceRegistration
     {

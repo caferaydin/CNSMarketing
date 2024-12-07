@@ -1,6 +1,6 @@
 using System;
 
-namespace CNSMarketing.Service.Models.Requests.Authentication;
+namespace CNSMarketing.Application.Models.Requests.Authentication;
 
 public class CreateUserRequestModel
 {

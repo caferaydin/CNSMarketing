@@ -5,7 +5,6 @@ namespace CNSMarketing.Domain.Entity.Manager;
 
 public class Customer : BaseEntity<int>
 {
-    public string? CustomerCode { get; set; }
     public string? CustomerName { get; set; }
     public string? CustomerEmail { get; set; }
     public string? CompanyName { get; set; }

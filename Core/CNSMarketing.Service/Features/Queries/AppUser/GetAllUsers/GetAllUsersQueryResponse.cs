@@ -1,6 +1,6 @@
-﻿using CNSMarketing.Service.Models.ViewModels.User;
+﻿using CNSMarketing.Application.Models.ViewModels.User;
 
-namespace CNSMarketing.Service.Features.Queries.AppUser.GetAllUsers
+namespace CNSMarketing.Application.Features.Queries.AppUser.GetAllUsers
 {
     public class GetAllUsersQueryResponse
     {

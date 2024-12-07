@@ -1,4 +1,4 @@
-﻿namespace CNSMarketing.Service.Abstraction.Storage
+﻿namespace CNSMarketing.Application.Abstraction.Storage
 {
     public interface IStorageService : IStorage
     {

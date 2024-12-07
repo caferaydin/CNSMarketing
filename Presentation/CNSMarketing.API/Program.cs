@@ -1,7 +1,7 @@
 using CNSMarketing.Infrastructure;
 using CNSMarketing.Infrastructure.Services.Storage.Azure;
 using CNSMarketing.Persistence;
-using CNSMarketing.Service;
+using CNSMarketing.Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.IdentityModel.Tokens;
@@ -18,7 +18,7 @@ builder.Services.AddHttpContextAccessor();
 #region  Add Service 
 
 builder.Services.AddPersistenceServiceRegistration();
-builder.Services.AddInfrastructureServiceRegistration();
+builder.Services.AddInfrastructureServiceRegistration(builder.Configuration);
 builder.Services.AddServiceRegistration();
 
 
@@ -28,6 +28,7 @@ builder.Services.AddStorage<AzureStorage>();
 //builder.Services.AddStorage();    
 
 #endregion Storage
+
 
 
 
@@ -109,7 +110,6 @@ app.UseCors();
 app.UseHttpsRedirection();
 
 app.UseRouting();
-app.UseAuthorization();
 app.UseAuthorization();
 
 

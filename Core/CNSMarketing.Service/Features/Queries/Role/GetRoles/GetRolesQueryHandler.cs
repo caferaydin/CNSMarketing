@@ -1,8 +1,8 @@
-﻿using CNSMarketing.Service.Abstraction.Service.UserRole;
-using CNSMarketing.Service.Models.Responses.Authentication;
+﻿using CNSMarketing.Application.Abstraction.Service.UserRole;
+using CNSMarketing.Application.Models.Responses.Authentication;
 using MediatR;
 
-namespace CNSMarketing.Service.Features.Queries.Role.GetRoles
+namespace CNSMarketing.Application.Features.Queries.Role.GetRoles
 {
     public class GetRolesQueryHandler : IRequestHandler<GetRolesQueryRequest, GetRolesQueryResponse>
     {

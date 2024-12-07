@@ -1,10 +1,10 @@
 ﻿using CNSMarketing.Domain.Entity.Common;
 using CNSMarketing.Infrastructure.Enums;
-using CNSMarketing.Service.Abstraction.ExternalService.SocialMedia;
-using CNSMarketing.Service.Abstraction.Service.SocialMedia;
-using CNSMarketing.Service.Abstraction.Token;
-using CNSMarketing.Service.Models.SocialMedia.ExternalModel.Linkedln;
-using CNSMarketing.Service.Models.SocialMedia.Model.Linkedln;
+using CNSMarketing.Application.Abstraction.ExternalService.SocialMedia;
+using CNSMarketing.Application.Abstraction.Service.SocialMedia;
+using CNSMarketing.Application.Abstraction.Token;
+using CNSMarketing.Application.Models.SocialMedia.ExternalModel.Linkedln;
+using CNSMarketing.Application.Models.SocialMedia.Model.Linkedln;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
