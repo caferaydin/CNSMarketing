@@ -364,4 +364,9 @@ FodyWeavers.xsd
 /Core/CNSMarketing.Service/Helpers/SocialMediaConfigurationHelper.cs
 /Presentation/CNSMarketing.API/appsettings.Development.json
 /Presentation/CNSMarketing.API/appsettings.json
+
+/Presentation/CNSMarketing.WEB/appsettings.Development.json
+/Presentation/CNSMarketing.WEB/appsettings.json
+
+
 /Infrastructure/CNSMarketing.Persistence/Service/SocialMedia/LinkedlnService.cs
