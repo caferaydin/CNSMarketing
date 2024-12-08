@@ -33,16 +33,21 @@ namespace CNSMarketing.WEB.Areas.SocialMedia.Controllers
             return View();
         }
 
+
+
+
+
+        #region  Json Controller
         [Authorize]
         [HttpGet]
         public IActionResult GetRedirectUrl()
         {
-            
-                var redirectUrl = _linkedlnService.GetRedirectUrl();
-                
 
-                return Ok(new { url = redirectUrl.RedirectUrl });
-          
+            var redirectUrl = _linkedlnService.GetRedirectUrl();
+
+
+            return Ok(new { url = redirectUrl.RedirectUrl });
+
         }
 
 
@@ -104,7 +109,7 @@ namespace CNSMarketing.WEB.Areas.SocialMedia.Controllers
                 // Token alındıysa başarılı bir şekilde sonuç dön
                 TempData["message"] = "LinkedIn bağlantısı başarılı.";
 
-               return Redirect(Request.Headers["Referer"].ToString());
+                return Redirect(Request.Headers["Referer"].ToString());
 
             }
             catch (Exception ex)
@@ -115,7 +120,7 @@ namespace CNSMarketing.WEB.Areas.SocialMedia.Controllers
         }
 
 
-
+        #endregion
 
 
     }

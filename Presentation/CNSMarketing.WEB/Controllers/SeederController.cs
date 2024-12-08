@@ -177,8 +177,19 @@ namespace CNSMarketing.WEB.Controllers
                         Permitted = false,
                         Icon = "",
                         IsActive = true,
+                    },
+                     new Menu()
+                    {
+                        Name = "Ingstagram",
+                        ControllerName = "Instagram",
+                        ActionName = "Index",
+                        AreaName = "SocialMedia",
+                        DisplayOrder = 1,
+                        Permitted = false,
+                        Icon = "",
+                        IsActive = true,
                     }
-                   
+
                 }
             };
 
@@ -187,13 +198,13 @@ namespace CNSMarketing.WEB.Controllers
 
             var managerMenu = new Menu()
             {
-                Name = "User And Role Management",
+                Name = "Management",
                 ControllerName = "Management",
                 ActionName = "",
                 AreaName = "",
                 DisplayOrder = 5,
                 Permitted = false,
-                Icon = "fe fe-seedling",
+                Icon = "fa fa-cogs",
                 IsActive = true,
 
                 SubMenus = new List<Menu>()
@@ -206,7 +217,7 @@ namespace CNSMarketing.WEB.Controllers
                          AreaName = "",
                          DisplayOrder = 1,
                          Permitted = false,
-                         Icon = "fa fa-cogs",
+                         Icon = "",
                         IsActive = true,
 
                          SubMenus = new List<Menu>()
@@ -219,7 +230,7 @@ namespace CNSMarketing.WEB.Controllers
                                   AreaName = "",
                                   DisplayOrder = 1,
                                   Permitted = false,
-                                  Icon = "fa fa-seedling",
+                                  Icon = "",
                                   IsActive = true,
 
                               }
@@ -234,7 +245,7 @@ namespace CNSMarketing.WEB.Controllers
                          AreaName = "",
                          DisplayOrder = 2,
                          Permitted = false,
-                         Icon = "fa fa-seedling",
+                         Icon = "",
                          IsActive = true,
                          SubMenus = new List<Menu>()
                          {
@@ -246,7 +257,7 @@ namespace CNSMarketing.WEB.Controllers
                                 AreaName = "Manager",
                                 DisplayOrder = 1,
                                 Permitted = false,
-                                Icon = "fa fa-seedling",
+                                Icon = "",
                                 IsActive = true
                             },
                             new Menu()
@@ -257,7 +268,7 @@ namespace CNSMarketing.WEB.Controllers
                                 AreaName = "",
                                 DisplayOrder = 2,
                                 Permitted = false,
-                                Icon = "fa fa-seedling",
+                                Icon = "",
                                 IsActive = true,
                             },
 
@@ -273,7 +284,7 @@ namespace CNSMarketing.WEB.Controllers
                          AreaName = "",
                          DisplayOrder = 2,
                          Permitted = false,
-                         Icon = "fa fa-seedling",
+                         Icon = "",
                          IsActive = true,
                          SubMenus = new List<Menu>()
                          {
@@ -285,7 +296,7 @@ namespace CNSMarketing.WEB.Controllers
                                 AreaName = "Manager",
                                 DisplayOrder = 1,
                                 Permitted = false,
-                                Icon = "fa fa-seedling",
+                                Icon = "",
                                 IsActive = true
                             },
                             new Menu()
@@ -296,7 +307,7 @@ namespace CNSMarketing.WEB.Controllers
                                 AreaName = "Manager",
                                 DisplayOrder = 2,
                                 Permitted = false,
-                                Icon = "fa fa-seedling",
+                                Icon = "",
                                 IsActive = true,
                             },
 
