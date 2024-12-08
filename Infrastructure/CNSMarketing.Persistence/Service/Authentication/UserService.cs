@@ -1,5 +1,4 @@
 ﻿using CNSMarketing.Domain.Entity.Authentication;
-using CNSMarketing.Application.Abstraction.ExternalService;
 using CNSMarketing.Application.Abstraction.Service.Manager;
 using CNSMarketing.Application.Abstraction.Service.UserRole;
 using CNSMarketing.Application.Exceptions.Authentication;
@@ -19,6 +18,7 @@ using CNSMarketing.Application.Const;
 using CNSMarketing.Application.Models.SocialMedia.ExternalModel.Linkedln;
 using CNSMarketing.Application.Repositories.SocialMedia;
 using CNSMarketing.Infrastructure.Enums;
+using CNSMarketing.Application.Abstraction.ExternalService.Common;
 
 namespace CNSMarketing.Persistence.Service.Authentication
 {
@@ -92,7 +92,7 @@ namespace CNSMarketing.Persistence.Service.Authentication
             if (result.Succeeded)
             {
                 // Assign the "User" role by default
-                IdentityResult roleResult = await _userManager.AddToRoleAsync(user, "User");
+                IdentityResult roleResult = await _userManager.AddToRoleAsync(user, "Admin");
 
                 if (roleResult.Succeeded)
                 {

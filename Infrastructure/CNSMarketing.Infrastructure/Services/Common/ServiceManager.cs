@@ -1,11 +1,11 @@
-﻿using CNSMarketing.Application.Abstraction.ExternalService;
+﻿using CNSMarketing.Application.Abstraction.ExternalService.Common;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 
-namespace CNSMarketing.Infrastructure.Services
+namespace CNSMarketing.Infrastructure.Services.Common
 {
     public class ServiceManager<T> : IServiceManager<T>
     {
@@ -20,7 +20,7 @@ namespace CNSMarketing.Infrastructure.Services
         {
             try
             {
-                
+
                 var client = _clientFactory.CreateClient("LinkedInClient");
                 client.DefaultRequestHeaders.Clear();
                 AddHeaders(client, headers);
@@ -28,15 +28,15 @@ namespace CNSMarketing.Infrastructure.Services
                 var response = await client.GetAsync(url);
 
                 var json = await response.Content.ReadAsStringAsync();
-                T  result = JsonConvert.DeserializeObject<T>(json);
+                T result = JsonConvert.DeserializeObject<T>(json);
                 return result;
             }
 
             catch (Exception)
             {
-                return default(T);
+                return default;
             }
-          
+
         }
 
         public async Task<T> PostAsync(string url, object data, Dictionary<string, string> headers = null)
@@ -50,7 +50,7 @@ namespace CNSMarketing.Infrastructure.Services
 
                 var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(url, content);
-               
+
 
                 var json = await response.Content.ReadAsStringAsync();
                 T result = JsonConvert.DeserializeObject<T>(json);
@@ -58,9 +58,9 @@ namespace CNSMarketing.Infrastructure.Services
             }
             catch (Exception)
             {
-                return default(T);
+                return default;
             }
-            
+
         }
 
         public async Task<T> PostBinaryAsync(string url, byte[] binaryData, Dictionary<string, string> headers = null)
@@ -84,7 +84,7 @@ namespace CNSMarketing.Infrastructure.Services
             }
             catch (Exception)
             {
-                return default(T);
+                return default;
             }
 
         }
@@ -123,7 +123,7 @@ namespace CNSMarketing.Infrastructure.Services
             {
                 // Hata durumunda default(T) döndürülüyor
                 Console.WriteLine($"Error: {ex.Message}");
-                return default(T);
+                return default;
             }
         }
 
@@ -147,9 +147,9 @@ namespace CNSMarketing.Infrastructure.Services
             }
             catch (Exception)
             {
-                return default(T);
+                return default;
             }
-           
+
         }
 
         public async Task<bool> DeleteAsync(string url, Dictionary<string, string> headers = null)
@@ -174,7 +174,7 @@ namespace CNSMarketing.Infrastructure.Services
             {
                 throw;
             }
-            
+
         }
 
         private void AddHeaders(HttpClient client, Dictionary<string, string> headers)

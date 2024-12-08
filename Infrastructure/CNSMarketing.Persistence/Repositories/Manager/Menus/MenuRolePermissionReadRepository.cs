@@ -1,8 +1,8 @@
 ﻿using CNSMarketing.Application.Repositories;
 using CNSMarketing.Application.ViewModels;
+using CNSMarketing.Domain.Entities;
 using CNSMarketing.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using CNSMarketing.Domain.Entities;
 
 namespace CNSMarketing.Persistence.Repositories.Manager
 {
@@ -62,5 +62,31 @@ namespace CNSMarketing.Persistence.Repositories.Manager
                 .Select(x => x.RoleId)
                 .ToListAsync();
         }
+
+        public async Task<List<NavigationMenuViewModel>> GetAllPermissionsForRolesAsync(IEnumerable<string> roleIds)
+        {
+            // Tüm rollerin izinlerini tek seferde çekiyoruz
+            var menuItems = await (from menu in _context.Menus
+                                   join rolePermission in _context.MenuRolePermissions
+                                   on menu.Id equals rolePermission.MenuId
+                                   where roleIds.Contains(rolePermission.RoleId) && menu.IsActive
+                                   select new NavigationMenuViewModel
+                                   {
+                                       Id = menu.Id,
+                                       Name = menu.Name,
+                                       ParentId = menu.ParentId,
+                                       ControllerName = menu.ControllerName,
+                                       ActionName = menu.ActionName,
+                                       Area = menu.AreaName,
+                                       DisplayOrder = menu.DisplayOrder,
+                                       IsActive = menu.IsActive,
+                                       Icon = menu.Icon
+                                   })
+                           .OrderBy(m => m.DisplayOrder)
+                           .ToListAsync();
+
+            return menuItems;
+        }
+
     }
 }

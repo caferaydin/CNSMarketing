@@ -1,5 +1,5 @@
 ﻿using Azure.Core;
-using CNSMarketing.Application.Abstraction.ExternalService;
+using CNSMarketing.Application.Abstraction.ExternalService.Common;
 using CNSMarketing.Application.Abstraction.ExternalService.SocialMedia;
 using CNSMarketing.Application.Helpers;
 using CNSMarketing.Application.Models.DTOs;
@@ -92,6 +92,17 @@ namespace CNSMarketing.Infrastructure.Services.SocialMedia
             var result = await _serviceProvider.GetRequiredService<IServiceManager<LinkedlnUserInfoResponseModel>>().GetAsync(requestUrl, headers);
             return result;
         }
+
+        public async Task<LinkedlnCompanyProfilResponseModel> GetCompanyProfilAsync(string accessToken, string companyUrn)
+        {
+            var requestUrl = "https://api.linkedin.com/rest/organizations/" + companyUrn;
+            headers.Add("Authorization", $"Bearer {accessToken}");
+            headers.Add("LinkedIn-Version", "202401");
+
+            var result = await _serviceProvider.GetRequiredService<IServiceManager<LinkedlnCompanyProfilResponseModel>>().GetAsync(requestUrl, headers);
+            return result;
+        }
+
 
         public async Task<LinkedlnMediaUploadResponseModel> CreateMediaUploadAsync(LinkedlnMediaUploadRequestModel requestModel, string accessToken)
         {
@@ -201,5 +212,7 @@ namespace CNSMarketing.Infrastructure.Services.SocialMedia
 
             return responseModel;
         }
+
+      
     }
 }

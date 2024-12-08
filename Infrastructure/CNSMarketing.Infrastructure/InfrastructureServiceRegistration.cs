@@ -1,9 +1,9 @@
-﻿using CNSMarketing.Application.Abstraction.ExternalService;
+﻿using CNSMarketing.Application.Abstraction.ExternalService.Common;
 using CNSMarketing.Application.Abstraction.ExternalService.SocialMedia;
 using CNSMarketing.Application.Abstraction.Storage;
 using CNSMarketing.Application.Abstraction.Token;
 using CNSMarketing.Infrastructure.Enums;
-using CNSMarketing.Infrastructure.Services;
+using CNSMarketing.Infrastructure.Services.Common;
 using CNSMarketing.Infrastructure.Services.SocialMedia;
 using CNSMarketing.Infrastructure.Services.Storage;
 using CNSMarketing.Infrastructure.Services.Storage.Azure;
@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
+using StackExchange.Redis;
 
 namespace CNSMarketing.Infrastructure
 {
@@ -20,9 +21,15 @@ namespace CNSMarketing.Infrastructure
     {
         public static void AddInfrastructureServiceRegistration(this IServiceCollection service, IConfiguration configuration)
         {
+
+            var redisConf = configuration["redisConnectionString"];
             service.AddScoped<IStorageService, StorageService>();
             service.AddScoped<ITokenHandler, TokenHandler>();
             service.AddScoped<IMailService, MailService>();
+
+
+            service.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(redisConf));
+            service.AddScoped<ICacheService, RedisCacheService>();
 
 
             //service.AddSingleton<IChatGptService>(new ChatGptService(configuration["openAiApiKey"]!));

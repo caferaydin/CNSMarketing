@@ -10,6 +10,7 @@ namespace CNSMarketing.Application.Abstraction.ExternalService.SocialMedia
         Task<LinkedlnAccessTokenResponseModel> CreateAccessTokenAsync(LinkedlnAccessTokenRequestModel request);
         Task<LinkedlnSelectAccountResponseModel> GetProfileAsync(string accessToken);
         Task<LinkedlnUserInfoResponseModel> GetUserInfoAsync(string accessToken);
+        Task<LinkedlnCompanyProfilResponseModel> GetCompanyProfilAsync(string accessToken, string companyUrn);
         Task<LinkedlnMediaUploadResponseModel> CreateMediaUploadAsync(LinkedlnMediaUploadRequestModel requestModel, string accessToken);
         Task<bool> UploadMediaStatusAsync(LinkedlnUploadMediaStatusRequestModel requestModel);
         Task<LinkedlnCreatePostResponseModel> CreatePost(LinkedlnCreatePostRequestModel requestModel, string accessToken);

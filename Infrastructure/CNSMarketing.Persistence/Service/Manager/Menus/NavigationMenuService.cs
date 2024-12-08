@@ -3,6 +3,7 @@ using CNSMarketing.Application.ViewModels;
 using CNSMarketing.Domain.Entities;
 using CNSMarketing.Application.Abstraction.Service.Manager;
 using System.Security.Claims;
+using CNSMarketing.Application.Abstraction.ExternalService.Common;
 
 namespace CNSMarketing.Persistence.Service.Manager
 {
@@ -11,31 +12,48 @@ namespace CNSMarketing.Persistence.Service.Manager
         private readonly IMenuReadRepository _menuReadRepository;
         private readonly IMenuRolePermissionReadRepository _menuRolePermissionReadRepository;
         private readonly IMenuRolePermissionWriteRepository _menuRolePermissionWriteRepository;
+        private readonly ICacheService _cacheService;
 
-        public NavigationMenuService(IMenuRolePermissionReadRepository readRepository, IMenuRolePermissionWriteRepository writeRepository, IMenuReadRepository menuReadRepository) : base(readRepository, writeRepository)
+        public NavigationMenuService(IMenuRolePermissionReadRepository readRepository, IMenuRolePermissionWriteRepository writeRepository, IMenuReadRepository menuReadRepository, ICacheService cacheService) : base(readRepository, writeRepository)
         {
             _menuRolePermissionReadRepository = readRepository;
             _menuRolePermissionWriteRepository = writeRepository;
             _menuReadRepository = menuReadRepository;
             _menuReadRepository = menuReadRepository;
+            _cacheService = cacheService;
         }
 
+        //public async Task<List<NavigationMenuViewModel>> GetMenuItemsAsync(ClaimsPrincipal principal)
+        //{
 
-        
+        //    var roleIds = await GetUserRoleIdsAsync(principal);
+        //    var permittedMenuItems = new List<NavigationMenuViewModel>();
+
+
+        //    foreach (var roleId in roleIds)
+        //    {
+        //        var roleSpecificMenus = await _menuRolePermissionReadRepository.GetAllRolePermissionsAsync(roleId);
+
+        //        permittedMenuItems.AddRange(roleSpecificMenus);
+        //    }
+
+        //    var filteredMenus = permittedMenuItems
+        //        .Where(menu => menu.IsActive)
+        //        .OrderBy(x => x.DisplayOrder)
+        //        .ToList();
+
+        //    return BuildMenuHierarchy(filteredMenus);
+        //}
 
         public async Task<List<NavigationMenuViewModel>> GetMenuItemsAsync(ClaimsPrincipal principal)
         {
+            // Kullanıcının rollerini al
             var roleIds = await GetUserRoleIdsAsync(principal);
-            var permittedMenuItems = new List<NavigationMenuViewModel>();
 
+            // Roller için izinleri tek bir sorguda al
+            var permittedMenuItems = await _menuRolePermissionReadRepository.GetAllPermissionsForRolesAsync(roleIds);
 
-            foreach (var roleId in roleIds)
-            {
-                var roleSpecificMenus = await _menuRolePermissionReadRepository.GetAllRolePermissionsAsync(roleId);
-
-                permittedMenuItems.AddRange(roleSpecificMenus);
-            }
-
+            // Menü hiyerarşisini oluştur
             var filteredMenus = permittedMenuItems
                 .Where(menu => menu.IsActive)
                 .OrderBy(x => x.DisplayOrder)
@@ -44,7 +62,8 @@ namespace CNSMarketing.Persistence.Service.Manager
             return BuildMenuHierarchy(filteredMenus);
         }
 
-       
+
+
         public async Task<List<NavigationMenuViewModel>> GetPermissionsByRoleIdAsync(string? id)
         {
             return await _menuReadRepository.GetPermissionsByRoleIdAsync(id);
@@ -67,6 +86,46 @@ namespace CNSMarketing.Persistence.Service.Manager
             return ((ClaimsIdentity)user.Identity).FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
 
+        public async Task<bool> HasPermissionAsync(ClaimsPrincipal user, string? controllerName, string? actionName, string? areaName)
+        {
+            var roleIds = await GetUserRoleIdsAsync(user);
+
+            return await _menuRolePermissionReadRepository.HasPermissionAsync(roleIds, controllerName, actionName, areaName);
+
+        }
+
+
+        //private List<NavigationMenuViewModel> BuildMenuHierarchy(List<NavigationMenuViewModel> menuItems)
+        //{
+        //    // Menülerin ID'lerini anahtar olarak kullanan bir sözlük oluştur
+        //    var menuDictionary = menuItems.ToDictionary(m => m.Id);
+
+        //    // Kök menüleri tutacak liste
+        //    var rootMenus = new List<NavigationMenuViewModel>();
+
+        //    // Her menü için
+        //    foreach (var menu in menuItems)
+        //    {
+        //        // Alt menü olup olmadığını kontrol et
+        //        if (menu.ParentId.HasValue && menuDictionary.TryGetValue(menu.ParentId.Value, out var parentMenu))
+        //        {
+        //            // Eğer alt menü varsa, SubMenus listesine ekle
+        //            if (parentMenu.SubMenus == null)
+        //            {
+        //                parentMenu.SubMenus = new List<NavigationMenuViewModel>();
+        //            }
+        //            parentMenu.SubMenus.Add(menu);
+        //        }
+        //        else
+        //        {
+        //            // Kök menü olarak ekle
+        //            rootMenus.Add(menu);
+        //        }
+        //    }
+
+        //    return rootMenus;
+        //}
+
         private List<NavigationMenuViewModel> BuildMenuHierarchy(List<NavigationMenuViewModel> menuItems)
         {
             // Menülerin ID'lerini anahtar olarak kullanan bir sözlük oluştur
@@ -75,18 +134,12 @@ namespace CNSMarketing.Persistence.Service.Manager
             // Kök menüleri tutacak liste
             var rootMenus = new List<NavigationMenuViewModel>();
 
-            // Her menü için
             foreach (var menu in menuItems)
             {
-                // Alt menü olup olmadığını kontrol et
                 if (menu.ParentId.HasValue && menuDictionary.TryGetValue(menu.ParentId.Value, out var parentMenu))
                 {
-                    // Eğer alt menü varsa, SubMenus listesine ekle
-                    if (parentMenu.SubMenus == null)
-                    {
-                        parentMenu.SubMenus = new List<NavigationMenuViewModel>();
-                    }
-                    parentMenu.SubMenus.Add(menu);
+                    // Alt menüleri ekle
+                    AddToParentMenu(parentMenu, menu);
                 }
                 else
                 {
@@ -98,14 +151,19 @@ namespace CNSMarketing.Persistence.Service.Manager
             return rootMenus;
         }
 
-        public async Task<bool> HasPermissionAsync(ClaimsPrincipal user, string? controllerName, string? actionName, string? areaName)
+        // Alt menüleri üst menüye ekleyen yardımcı metot
+        private void AddToParentMenu(NavigationMenuViewModel parentMenu, NavigationMenuViewModel childMenu)
         {
-            var roleIds = await GetUserRoleIdsAsync(user);
-
-            return await _menuRolePermissionReadRepository.HasPermissionAsync(roleIds, controllerName, actionName, areaName);
-
+            if (parentMenu.SubMenus == null)
+            {
+                parentMenu.SubMenus = new List<NavigationMenuViewModel>();
+            }
+            parentMenu.SubMenus.Add(childMenu);
         }
 
-        
+
+
+
+
     }
 }

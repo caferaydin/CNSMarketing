@@ -1,4 +1,4 @@
-﻿using CNSMarketing.Application.Abstraction.ExternalService;
+﻿using CNSMarketing.Application.Abstraction.ExternalService.Common;
 using CNSMarketing.Application.Abstraction.Service.Authentication;
 using CNSMarketing.Application.Abstraction.Service.UserRole;
 using CNSMarketing.Application.Abstraction.Token;

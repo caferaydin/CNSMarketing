@@ -10,5 +10,8 @@ namespace CNSMarketing.Application.Repositories
         Task<List<string>> GetRoleIdsByUserId(string userId);
         Task<bool> HasPermissionAsync(List<string> roleIds, string? controllerName, string? actionName, string? areaName);
 
+
+
+        Task<List<NavigationMenuViewModel>> GetAllPermissionsForRolesAsync(IEnumerable<string> roleIds);
     }
 }

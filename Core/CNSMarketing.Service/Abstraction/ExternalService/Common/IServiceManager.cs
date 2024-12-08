@@ -1,4 +1,4 @@
-﻿namespace CNSMarketing.Application.Abstraction.ExternalService
+﻿namespace CNSMarketing.Application.Abstraction.ExternalService.Common
 {
     public interface IServiceManager<T>
     {

@@ -1,4 +1,4 @@
-﻿using CNSMarketing.Application.Abstraction.ExternalService;
+﻿using CNSMarketing.Application.Abstraction.ExternalService.Common;
 using MapsterMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

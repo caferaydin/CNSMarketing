@@ -69,6 +69,17 @@ namespace CNSMarketing.API.Controllers.SocialMedia
         }
 
         [HttpPost("[action]")]
+        public async Task<IActionResult> GetCompanyProfile([FromBody] LinkedlnBaseRequestModel requestModel)
+        {
+            var tokenValidationResult = await TokenControl(HttpContext);
+
+            if (tokenValidationResult != TokenResult.Ok)
+                return BadRequest(GenericResponse(GetInvalidTokenResponse()));
+
+            return Ok(GenericResponse(await _linkedlnService.GetCompanyProfileAsync(tokenInfo, requestModel.urn)));
+        }
+
+        [HttpPost("[action]")]
         public async Task<IActionResult> GetAllMedia([FromBody] LinkedlnBaseRequestModel requestModel)
         {
             var tokenValidationResult = await TokenControl(HttpContext);

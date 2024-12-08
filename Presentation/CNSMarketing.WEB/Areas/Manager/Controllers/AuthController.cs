@@ -1,4 +1,4 @@
-﻿using CNSMarketing.Application.Abstraction.ExternalService;
+﻿using CNSMarketing.Application.Abstraction.ExternalService.Common;
 using CNSMarketing.Application.Features.Command.AppUser.LoginUser;
 using CNSMarketing.Application.Features.Command.AppUser.PasswordReset;
 using CNSMarketing.Application.Features.Command.AppUser.RefreshTokenLogin;

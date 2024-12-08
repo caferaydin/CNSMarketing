@@ -9,6 +9,7 @@ using CNSMarketing.Application.Models.SocialMedia;
 using CNSMarketing.Application.Models.SocialMedia.ExternalModel.Linkedln;
 using CNSMarketing.Application.Models.SocialMedia.Model.Linkedln;
 using CNSMarketing.Application.Repositories.SocialMedia;
+using CNSMarketing.Domain.Entity.Authentication;
 
 namespace CNSMarketing.Persistence.Service.SocialMedia
 {
@@ -88,7 +89,20 @@ namespace CNSMarketing.Persistence.Service.SocialMedia
             return new();
 
         }
-       
+
+        public async Task<LinkedlnCompanyProfilResponseModel> GetCompanyProfileAsync(TokenInfo tokenInfo, string companyUrn)
+        {
+            var linkedlnToken = await TokenIsValid(tokenInfo);
+
+            if (linkedlnToken.AccessToken != null)
+            {
+                return await _externalService.GetCompanyProfilAsync(linkedlnToken.AccessToken!,companyUrn);
+            }
+
+            return new();
+        }
+
+
         public async Task<List<LinkedlnMediasResponseModel>> GetMediasAsync(TokenInfo tokenInfo, string companyUrn)
         {
             var linkedlnToken = await TokenIsValid(tokenInfo);
@@ -231,7 +245,7 @@ namespace CNSMarketing.Persistence.Service.SocialMedia
             return false;
         }
 
-        private async Task<APIToken> TokenIsValid(TokenInfo tokenInfo)
+        public async Task<APIToken> TokenIsValid(TokenInfo tokenInfo)
         {
             var linkedinToken = await _tokenReadRepository.GetSingleAsync
                 (x => x.ApiId == (int)ApiName.Linkedln
@@ -244,6 +258,6 @@ namespace CNSMarketing.Persistence.Service.SocialMedia
             return null;
         }
 
-      
+     
     }
 }

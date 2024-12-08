@@ -1,16 +1,13 @@
-﻿using CNSMarketing.Application.Abstraction.ExternalService.SocialMedia;
-using CNSMarketing.Application.Abstraction.Service.Manager;
+﻿using CNSMarketing.Application.Abstraction.Service.Manager;
 using CNSMarketing.Application.Abstraction.Service.SocialMedia;
-using CNSMarketing.Application.Models.SocialMedia.ExternalModel.Linkedln;
 using CNSMarketing.Application.Models.SocialMedia.Model.Linkedln;
 using CNSMarketing.Domain.Entity.Authentication;
 using CNSMarketing.Domain.Entity.Common;
-using CNSMarketing.Infrastructure.Enums;
+using CNSMarketing.Domain.Entity.Manager;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace CNSMarketing.WEB.Areas.SocialMedia.Controllers
 {
@@ -28,13 +25,18 @@ namespace CNSMarketing.WEB.Areas.SocialMedia.Controllers
             _customerService = customerService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var customer = await GetCustomer();
+
+            var posts = await _linkedlnService.GetMediasAsync(new()
+            {
+                CustomerId = customer.Id,
+            }, "103599524");
+
+
+            return View(posts);
         }
-
-
-
 
 
         #region  Json Controller
@@ -42,12 +44,9 @@ namespace CNSMarketing.WEB.Areas.SocialMedia.Controllers
         [HttpGet]
         public IActionResult GetRedirectUrl()
         {
-
             var redirectUrl = _linkedlnService.GetRedirectUrl();
 
-
             return Ok(new { url = redirectUrl.RedirectUrl });
-
         }
 
 
@@ -121,6 +120,16 @@ namespace CNSMarketing.WEB.Areas.SocialMedia.Controllers
 
 
         #endregion
+
+
+        private async Task<Customer> GetCustomer()
+        {
+            var user = await _userManager.GetUserAsync(User)!;
+
+            var customer = _customerService.GetWhere(x => x.UserId == user.Id).FirstOrDefault()!;
+
+            return customer;
+        }
 
 
     }

@@ -1,10 +1,10 @@
-﻿using CNSMarketing.Application.Abstraction.ExternalService;
+﻿using CNSMarketing.Application.Abstraction.ExternalService.Common;
 using Microsoft.Extensions.Configuration;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
 
-namespace CNSMarketing.Infrastructure.Services
+namespace CNSMarketing.Infrastructure.Services.Common
 {
     public class MailService : IMailService // TODO1
     {
@@ -27,7 +27,7 @@ namespace CNSMarketing.Infrastructure.Services
                 mail.To.Add(to);
             mail.Subject = subject;
             mail.Body = body;
-            mail.From = new(_configuration["Mail:Username"], "CNS Marketing", System.Text.Encoding.UTF8);
+            mail.From = new(_configuration["Mail:Username"], "CNS Marketing", Encoding.UTF8);
 
             SmtpClient smtp = new();
             smtp.Credentials = new NetworkCredential(_configuration["Mail:Username"], _configuration["Mail:Password"]);
